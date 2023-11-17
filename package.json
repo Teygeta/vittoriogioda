@@ -1,7 +1,9 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "type": "module",
+  "compilerOptions": {
+    "module": "CommonJS"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
