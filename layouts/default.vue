@@ -16,7 +16,7 @@
       </div>
 
       <div>
-        Black/White
+        <ToggleLightDarkButton />
       </div>
     </nav>
 
