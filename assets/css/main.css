@@ -6,7 +6,7 @@
 html,
 body {
   scroll-behavior: smooth;
-  background-color: rgb(0, 26, 25);
   color: white;
   font-family: 'Inter', sans-serif;
+  @apply dark:bg-[#001a19] bg-[#edffff];
 }
