@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode'
   ],
+  colorMode: {
+    classSuffix: ''
+  },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   postcss: {
