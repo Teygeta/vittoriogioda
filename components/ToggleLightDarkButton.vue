@@ -16,7 +16,7 @@ const isDark = computed({
 <template>
   <ClientOnly>
     <button
-      class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-1.5 p-1.5 text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400 inline-flex items-center"
+      class="rounded border border-transparent px-2.5 py-1.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
       aria-label="Theme" type="button" @click="isDark = !isDark">
       <MoonIcon v-if="isDark" class="flex-shrink-0 w-5 h-5" />
       <SunIcon v-else class="flex-shrink-0 w-5 h-5" />

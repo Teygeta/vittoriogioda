@@ -6,7 +6,6 @@
 html,
 body {
   scroll-behavior: smooth;
-  color: white;
   font-family: 'Inter', sans-serif;
-  @apply dark:bg-[#001a19] bg-[#edffff];
+  @apply dark:bg-[#060f0f] bg-[#f3ffff] dark:text-white;
 }
