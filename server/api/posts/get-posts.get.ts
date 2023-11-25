@@ -2,8 +2,7 @@ import { prisma } from '~/server/services/prisma'
 
 export default defineEventHandler(async (event) => {
 
-  const users = await prisma.user.findMany()
+  const posts = await prisma.post.findMany()
 
-  return users
-
+  return posts
 })
