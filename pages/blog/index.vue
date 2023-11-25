@@ -7,7 +7,7 @@ const posts = computed(() => data.value ?? [])
 
 <template>
   <main>
-    <div class="flex flex-col max-w-3xl mx-auto">
+    <div class="flex flex-col max-w-3xl mx-auto gap-5">
       <nuxt-link class="transition dark:hover:bg-opacity-10 dark:bg-white dark:bg-opacity-5 py-3 px-6 rounded-md"
         v-for="post in posts" :key="post.id" :to="`/blog/${post.id}`">
         <div>
