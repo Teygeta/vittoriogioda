@@ -11,7 +11,7 @@ const posts = computed(() => data.value ?? [])
       <nuxt-link class="transition dark:hover:bg-opacity-10 dark:bg-white dark:bg-opacity-5 py-3 px-6 rounded-md"
         v-for="post in posts" :key="post.id" :to="`/blog/${post.id}`">
         <div>
-          <h1 class="font-semibold text-2xl text-[#ebfff1]">{{ post.title }}</h1>
+          <h1 class="font-semibold text-2xl">{{ post.title }}</h1>
           <!-- render html post.content -->
           <div class="post-container" v-html="post.content" />
         </div>
