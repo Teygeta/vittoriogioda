@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const router = useRouter()
+import { XCircleIcon } from "@heroicons/vue/24/outline"
+import type { Post } from '@prisma/client'
+
 const { status, signOut } = useAuth()
 
 const isNotSignedIn = computed(() => status.value === 'unauthenticated')
@@ -9,24 +11,61 @@ async function handleSignOut() {
 }
 
 const createPostForm = reactive({
-  content: ''
+  content: '',
+  // TODO: get authorId
+  authorId: 2
 })
 
+const { data } = useFetch('/api/posts/get-posts')
+
+const posts = computed(() => data.value ?? [])
+
+const isSubmitting = ref(false)
+
 async function createNewPost() {
+  if (isSubmitting.value) {
+    return
+  }
+
+  isSubmitting.value = true
+
   try {
     await useFetch('/api/posts/create-post', {
+      method: 'POST',
+      body: createPostForm
+    })
+  }
+  catch (error) {
+    console.error(error)
+  }
+  finally {
+    refreshNuxtData()
+    isSubmitting.value = false
+  }
+}
+
+
+async function deletePost(postId: Post['id']) {
+  try {
+    await useFetch('/api/posts/delete-post', {
+      method: 'POST',
       body: {
-        content: createPostForm.content
+        postId
       }
     })
+    createPostForm.content = ''
+
   } catch (error) {
     console.error(error)
+  }
+  finally {
+    refreshNuxtData()
   }
 }
 </script>
 
 <template>
-  <div class="mx-auto">
+  <div class="mx-auto max-w-5xl">
     <template v-if="isNotSignedIn">
       <h1>Unauthorized</h1>
     </template>
@@ -36,11 +75,29 @@ async function createNewPost() {
       <button @click="handleSignOut">Sign Out</button>
 
       <div>
-        <form @submit.prevent="createNewPost">
+        <div>
           <textarea class="focus:outline-none bg-black" v-model="createPostForm.content" />
-          <button type="submit">Create Post</button>
-        </form>
+          <button @click="createNewPost" type="submit">Create Post</button>
+        </div>
 
+        <div class="my-10">
+          <h2 class="text-xl font-bold">
+            Posts list
+          </h2>
+          <ul class="rounded-md p-3 bg-neutral-800 divide-y-2 divide-neutral-700">
+            <li class="flex justify-between items-center gap-2" v-for="post in posts" :key="post.id">
+              <div>
+                <p>{{ post.title }}</p>
+                <p>{{ post.content }}</p>
+              </div>
+              <div>
+                <button @click="deletePost(post.id)">
+                  <XCircleIcon class="w-7 text-red-500 hover:text-red-400" />
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </template>
   </div>

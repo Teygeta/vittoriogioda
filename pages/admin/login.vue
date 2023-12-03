@@ -9,7 +9,7 @@ const isSignedIn = computed(() => status.value === 'authenticated')
 // }
 
 async function handleSignIn() {
-  await signIn('github')
+  await signIn('github', { callbackUrl: '/admin' })
 }
 
 async function handleSignOut() {
