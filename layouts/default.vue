@@ -19,6 +19,11 @@
               class="rounded border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/blog">📰 Blog</nuxt-link>
           </li>
+          <li>
+            <nuxt-link
+              class="rounded border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
+              to="/blog">📸 Photos</nuxt-link>
+          </li>
         </ul>
       </div>
 

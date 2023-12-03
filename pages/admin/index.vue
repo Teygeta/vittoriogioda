@@ -77,27 +77,30 @@ async function deletePost(postId: Post['id']) {
       <div>
         <div>
           <textarea class="focus:outline-none bg-black" v-model="createPostForm.content" />
-          <button @click="createNewPost" type="submit">Create Post</button>
+          <button type="button" @click="createNewPost">Create Post</button>
         </div>
 
-        <div class="my-10">
-          <h2 class="text-xl font-bold">
-            Posts list
-          </h2>
-          <ul class="rounded-md p-3 bg-neutral-800 divide-y-2 divide-neutral-700">
-            <li class="flex justify-between items-center gap-2" v-for="post in posts" :key="post.id">
-              <div>
-                <p>{{ post.title }}</p>
-                <p>{{ post.content }}</p>
-              </div>
-              <div>
-                <button @click="deletePost(post.id)">
-                  <XCircleIcon class="w-7 text-red-500 hover:text-red-400" />
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <template v-if="posts">
+          <div class="my-10">
+            <h2 class="text-xl font-bold">
+              Posts list
+            </h2>
+            <ul class="rounded-md p-3 bg-neutral-800 divide-y-2 divide-neutral-700">
+              <li class="flex justify-between items-center gap-2" v-for="post in posts" :key="post.id">
+                <div>
+                  <p>{{ post.title }}</p>
+                  <p>{{ post.content }}</p>
+                </div>
+                <div>
+                  <button type="button" @click="deletePost(post.id)">
+                    <XCircleIcon class="w-7 text-red-500 hover:text-red-400" />
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </template>
+
       </div>
     </template>
   </div>
