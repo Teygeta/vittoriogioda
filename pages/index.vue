@@ -1,10 +1,13 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
   <div class="flex flex-col justify-center flex-1 px-4 sm:px-8">
-    <div class="flex flex-col max-w-4xl mx-auto">
+    <div class="absolute object-fill">
+      <img src="../assets/svg/home.svg" alt="home" />
+    </div>
+
+    <div class="flex relative flex-col max-w-4xl mx-auto">
       <div class="inline-flex flex-wrap items-end gap-4 md:gap-8">
         <h1 class="inline text-3xl font-bold leading-none tracking-tight md:text-5xl">
           Vittorio Gioda</h1>
