@@ -1,7 +1,7 @@
 <template>
   <main class="flex flex-col min-h-screen">
     <nav
-      class="sticky top-0 flex items-center justify-between w-full max-w-6xl p-5 mx-auto backdrop-blur-md bg-opacity-40">
+      class="z-50 sticky top-0 flex items-center justify-between w-full max-w-6xl p-5 mx-auto backdrop-blur-md bg-opacity-40">
       <div>
         <ul class="flex items-center gap-8">
           <li>
