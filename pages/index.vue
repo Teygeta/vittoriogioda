@@ -3,7 +3,7 @@
 
 <template>
   <div class="flex flex-col justify-center flex-1 px-4 sm:px-8">
-    <div class="absolute">
+    <div class="absolute max-w-[2000px]">
       <img src="../assets/svg/home.svg" alt="home" />
     </div>
 

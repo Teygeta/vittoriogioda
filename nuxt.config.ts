@@ -5,16 +5,29 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@sidebase/nuxt-auth'
   ],
+
+  build: {
+    transpile: ['trpc-nuxt']
+  },
+
   auth: {
     provider: {
       type: 'authjs'
     }
   },
+
   colorMode: {
     classSuffix: ''
   },
-  devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+
+  devtools: {
+    enabled: true
+  },
+
+  css: [
+    '~/assets/css/main.css'
+  ],
+
   postcss: {
     plugins: {
       tailwindcss: {},

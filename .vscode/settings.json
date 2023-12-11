@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "Gioda",
-    "Nuxt"
-  ]
+    "Nuxt",
+    "trpc"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
