@@ -23,4 +23,43 @@ export const blogRouter = router({
         post,
       }
     }),
+
+  createPost: publicProcedure
+    .input(z.object({
+      title: z.string(),
+      content: z.string(),
+      authorId: z.number(),
+    }))
+    .mutation(async ({ input }) => {
+      const post = await prisma.post.create({
+        data: {
+          title: input.title,
+          content: input.content,
+          authorId: input.authorId,
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
+
+  deletePost: publicProcedure
+    .input(z.object({
+      postId: z.number(),
+    }))
+    .query(async ({ input }) => {
+      const post = await prisma.post.update({
+        where: {
+          id: input.postId,
+        },
+        data: {
+          deletedAt: new Date(),
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
 })
