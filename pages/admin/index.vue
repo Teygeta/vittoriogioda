@@ -2,6 +2,7 @@
 import { XCircleIcon } from "@heroicons/vue/24/outline"
 import type { Post } from '@prisma/client'
 
+const { $trpc } = useNuxtApp()
 const { status, signOut } = useAuth()
 
 const isNotSignedIn = computed(() => status.value === 'unauthenticated')
@@ -12,13 +13,10 @@ async function handleSignOut() {
 
 const createPostForm = reactive({
   content: '',
-  // TODO: get authorId
+  title: 'New Post',
   authorId: 2
 })
 
-const { data } = useFetch('/api/posts/get-posts')
-
-const posts = computed(() => data.value ?? [])
 
 const isSubmitting = ref(false)
 
@@ -30,10 +28,7 @@ async function createNewPost() {
   isSubmitting.value = true
 
   try {
-    await useFetch('/api/posts/create-post', {
-      method: 'POST',
-      body: createPostForm
-    })
+    await $trpc.blog.createPost.mutate(createPostForm)
   }
   catch (error) {
     console.error(error)
@@ -41,27 +36,28 @@ async function createNewPost() {
   finally {
     refreshNuxtData()
     isSubmitting.value = false
-  }
-}
-
-
-async function deletePost(postId: Post['id']) {
-  try {
-    await useFetch('/api/posts/delete-post', {
-      method: 'POST',
-      body: {
-        postId
-      }
-    })
     createPostForm.content = ''
-
-  } catch (error) {
-    console.error(error)
-  }
-  finally {
-    refreshNuxtData()
   }
 }
+
+
+// async function deletePost(postId: Post['id']) {
+//   try {
+//     await useFetch('/api/posts/delete-post', {
+//       method: 'POST',
+//       body: {
+//         postId
+//       }
+//     })
+//     createPostForm.content = ''
+
+//   } catch (error) {
+//     console.error(error)
+//   }
+//   finally {
+//     refreshNuxtData()
+//   }
+// }
 </script>
 
 <template>
@@ -80,7 +76,7 @@ async function deletePost(postId: Post['id']) {
           <button type="button" @click="createNewPost">Create Post</button>
         </div>
 
-        <template v-if="posts">
+        <!-- <template v-if="posts">
           <div class="my-10">
             <h2 class="text-xl font-bold">
               Posts list
@@ -99,7 +95,7 @@ async function deletePost(postId: Post['id']) {
               </li>
             </ul>
           </div>
-        </template>
+        </template> -->
 
       </div>
     </template>
