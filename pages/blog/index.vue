@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { $client } = useNuxtApp()
+const { $trpc } = useNuxtApp()
 
-const { data } = await $client.blog.paginatePost.useQuery()
+const { data } = await $trpc.blog.paginatePost.useQuery()
 
 const posts = computed(() => data.value?.post ?? [])
 </script>
