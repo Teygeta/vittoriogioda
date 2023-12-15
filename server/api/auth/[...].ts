@@ -4,6 +4,8 @@ import { NuxtAuthHandler } from '#auth'
 import GoogleProvider from "next-auth/providers/google"
 
 export default NuxtAuthHandler({
+  secret: process.env.AUTH_SECRET,
+
   pages: {
     signIn: "/admin/login",
     signOut: "/admin/login",
