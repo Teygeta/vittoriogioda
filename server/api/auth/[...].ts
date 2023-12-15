@@ -1,13 +1,27 @@
-// file: ~/server/api/auth/[...].ts
+// Google provider options: https://github.com/nextauthjs/next-auth/blob/v4/packages/next-auth/src/providers/google.ts
+
 import { NuxtAuthHandler } from '#auth'
-import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from "next-auth/providers/google"
 
 export default NuxtAuthHandler({
+  pages: {
+    signIn: "/admin/login",
+    signOut: "/admin/login",
+    error: "/admin/login",
+    verifyRequest: "/admin/login",
+  },
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
-    GithubProvider.default({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    GoogleProvider.default({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     })
   ]
 })

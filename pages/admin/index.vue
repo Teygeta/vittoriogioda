@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { XCircleIcon } from "@heroicons/vue/24/outline"
-import type { Post } from '@prisma/client'
+definePageMeta({
+  middleware: 'auth',
+})
 
 const { $trpc } = useNuxtApp()
-const { status, signOut } = useAuth()
-
-const isNotSignedIn = computed(() => status.value === 'unauthenticated')
+const { signOut } = useAuth()
 
 async function handleSignOut() {
   await signOut()
@@ -39,44 +38,22 @@ async function createNewPost() {
     createPostForm.content = ''
   }
 }
-
-
-// async function deletePost(postId: Post['id']) {
-//   try {
-//     await useFetch('/api/posts/delete-post', {
-//       method: 'POST',
-//       body: {
-//         postId
-//       }
-//     })
-//     createPostForm.content = ''
-
-//   } catch (error) {
-//     console.error(error)
-//   }
-//   finally {
-//     refreshNuxtData()
-//   }
-// }
 </script>
 
 <template>
   <div class="mx-auto max-w-5xl">
-    <template v-if="isNotSignedIn">
-      <h1>Unauthorized</h1>
-    </template>
-    <template v-else>
-      <h1 class="text-4xl font-bold">Admin</h1>
 
-      <button @click="handleSignOut">Sign Out</button>
+    <h1 class="text-4xl font-bold">Admin</h1>
 
+    <button @click="handleSignOut">Sign Out</button>
+
+    <div>
       <div>
-        <div>
-          <textarea class="focus:outline-none bg-black" v-model="createPostForm.content" />
-          <button type="button" @click="createNewPost">Create Post</button>
-        </div>
+        <textarea class="focus:outline-none bg-black" v-model="createPostForm.content" />
+        <button type="button" @click="createNewPost">Create Post</button>
+      </div>
 
-        <!-- <template v-if="posts">
+      <!-- <template v-if="posts">
           <div class="my-10">
             <h2 class="text-xl font-bold">
               Posts list
@@ -97,7 +74,7 @@ async function createNewPost() {
           </div>
         </template> -->
 
-      </div>
-    </template>
+    </div>
+
   </div>
 </template>

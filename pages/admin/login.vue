@@ -1,15 +1,17 @@
 <script setup lang="ts">
-const router = useRouter()
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/admin',
+  },
+})
+
 const { status, signIn, signOut } = useAuth()
 
 const isSignedIn = computed(() => status.value === 'authenticated')
 
-// if (isSignedIn) {
-//   navigateTo('/admin')
-// }
-
 async function handleSignIn() {
-  await signIn('github', { callbackUrl: '/admin' })
+  await signIn('google', { callbackUrl: '/admin' })
 }
 
 async function handleSignOut() {
