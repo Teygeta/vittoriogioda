@@ -6,23 +6,18 @@ definePageMeta({
   },
 })
 
-const { status, signIn, signOut } = useAuth()
-
-const isSignedIn = computed(() => status.value === 'authenticated')
+const { signIn } = useAuth()
 
 async function handleSignIn() {
   await signIn('google', { callbackUrl: '/admin' })
-}
-
-async function handleSignOut() {
-  await signOut()
 }
 </script>
 
 <template>
   <div class="mx-auto">
-    <button v-if="!isSignedIn" @click="handleSignIn">Sign In</button>
-    <button v-else @click="handleSignOut">Sign Out</button>
-    <div>{{ status }}</div>
+    <button class="hover:bg-gray-200 bg-white py-2 px-4 rounded-md flex items-center gap-3" @click="handleSignIn">
+      <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8" />
+      <p class="text-black font-semibold mr-2 tracking-tight">Accedi</p>
+    </button>
   </div>
 </template>
