@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Power } from 'lucide-vue-next'
-import { CircleUser, Fingerprint, Home, ServerCog } from 'lucide-vue-next'
+import { Power, BookOpen, Settings, CircleUser, Fingerprint, Home, ServerCog } from 'lucide-vue-next'
 
 import { Button } from '@/components/ui/button'
 
@@ -44,7 +43,7 @@ const instanceId = computed(() => route.params.instanceid as string)
               <NuxtLink custom to="/admin/blog" #="{ isExactActive, href, navigate }">
                 <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
                   @click="navigate">
-                  <CircleUser class="w-4 h-4 mr-2" />
+                  <BookOpen class="w-4 h-4 mr-2" />
                   Blog
                 </Button>
               </NuxtLink>
@@ -54,6 +53,16 @@ const instanceId = computed(() => route.params.instanceid as string)
                   @click="navigate">
                   <CircleUser class="w-4 h-4 mr-2" />
                   Users
+                </Button>
+              </NuxtLink>
+
+              <div class="border-t"></div>
+
+              <NuxtLink custom to="/admin/settings" #="{ isExactActive, href, navigate }">
+                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate">
+                  <Settings class="w-4 h-4 mr-2" />
+                  Settings
                 </Button>
               </NuxtLink>
             </div>
