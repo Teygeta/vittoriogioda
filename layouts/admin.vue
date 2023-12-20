@@ -1,14 +1,71 @@
 <script setup lang="ts">
-import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next';
-</script>
-<template>
-  <main>
+import { Power } from 'lucide-vue-next'
+import { CircleUser, Fingerprint, Home, ServerCog } from 'lucide-vue-next'
 
-    <div>
-      <slot />
+import { Button } from '@/components/ui/button'
+
+const { signOut } = useAuth()
+
+definePageMeta({
+  layout: 'admin',
+})
+
+const route = useRoute()
+const instanceId = computed(() => route.params.instanceid as string)
+</script>
+
+<template>
+  <div class="container w-full mx-auto my-10">
+    <div class="flex justify-between">
+      <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
+        Admin
+      </h2>
+      <Button @click="signOut">
+        <Power :size="15" />
+      </Button>
     </div>
 
-    <footer>
 
-  </footer>
-</main></template>
+    <div class="grid h-full py-4 lg:grid-cols-5 gap-x-4">
+
+      <!-- Sidebar -->
+      <div class="flex-col hidden h-full overflow-hidden lg:flex">
+        <div class="flex flex-col justify-between flex-grow space-y-4">
+          <div class="flex-grow space-y-4">
+            <div class="space-y-1">
+              <NuxtLink custom to="/admin" #="{ isExactActive, href, navigate }">
+                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate">
+                  <Home class="w-4 h-4 mr-2" />
+                  Home
+                </Button>
+              </NuxtLink>
+
+              <NuxtLink custom to="/admin/blog" #="{ isExactActive, href, navigate }">
+                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate">
+                  <CircleUser class="w-4 h-4 mr-2" />
+                  Blog
+                </Button>
+              </NuxtLink>
+
+              <NuxtLink custom to="/admin/users" #="{ isExactActive, href, navigate }">
+                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate">
+                  <CircleUser class="w-4 h-4 mr-2" />
+                  Users
+                </Button>
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-3 overflow-hidden lg:col-span-4">
+        <div class="h-full overflow-auto">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
