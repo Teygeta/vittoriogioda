@@ -2,11 +2,13 @@
 <script setup>
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import Underline from '@tiptap/extension-underline'
 
 const editor = useEditor({
   content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
   extensions: [
     StarterKit,
+    Underline,
   ],
   editorProps: {
     attributes: {
@@ -17,11 +19,12 @@ const editor = useEditor({
     }
   },
 })
+
 </script>
 
 <template>
   <div>
-    <div v-if="editor">
+    <div v-if="editor" class="flex gap-1">
       <button @click="editor.chain().focus().toggleBold().run()"
         :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
         bold
@@ -30,6 +33,10 @@ const editor = useEditor({
         :disabled="!editor.can().chain().focus().toggleItalic().run()"
         :class="{ 'is-active': editor.isActive('italic') }">
         italic
+      </button>
+      <button @click="editor.chain().focus().toggleUnderline().run()"
+        :class="{ 'is-active': editor.isActive('underline') }">
+        toggleUnderline
       </button>
       <button @click="editor.chain().focus().toggleStrike().run()"
         :disabled="!editor.can().chain().focus().toggleStrike().run()"
@@ -91,16 +98,17 @@ const editor = useEditor({
       </button>
       <button @click="editor.chain().focus().setHorizontalRule().run()">
         horizontal rule
-    </button>
-    <button @click="editor.chain().focus().setHardBreak().run()">
-      hard break
-    </button>
-    <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
-      undo
-    </button>
-    <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
-      redo
-    </button>
+      </button>
+      <button @click="editor.chain().focus().setHardBreak().run()">
+        hard break
+      </button>
+      <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
+        undo
+      </button>
+      <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
+        redo
+      </button>
+    </div>
+    <editor-content :editor="editor" />
   </div>
-  <editor-content :editor="editor" />
-</div></template>
+</template>
