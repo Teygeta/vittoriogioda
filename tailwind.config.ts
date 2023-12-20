@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from 'tailwindcss'
+import tailwindTypography from '@tailwindcss/typography'
 
 
 export default <Partial<Config>>{
@@ -16,6 +17,6 @@ export default <Partial<Config>>{
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    tailwindTypography,
   ],
 }
