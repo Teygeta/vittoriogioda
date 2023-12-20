@@ -19,9 +19,18 @@ const instanceId = computed(() => route.params.instanceid as string)
       <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
         Admin
       </h2>
-      <Button @click="signOut">
-        <Power :size="15" />
-      </Button>
+      <div class="flex gap-2">
+        <NuxtLink to="/">
+          <Button>
+            <Home :size="15" />
+          </Button>
+        </NuxtLink>
+
+        <Button variant="destructive" @click="signOut">
+          <Power :size="15" />
+        </Button>
+      </div>
+
     </div>
 
 

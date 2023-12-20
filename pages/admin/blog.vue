@@ -16,10 +16,11 @@ definePageMeta({
         Manage posts
       </p>
 
-      <Card>
-        <TipTap />
-      </Card>
     </div>
+
+    <Card class="p-5 mt-5">
+      <TipTap />
+    </Card>
 
   </div>
 </template>

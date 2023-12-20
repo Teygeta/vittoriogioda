@@ -17,6 +17,9 @@ dependencies:
   '@prisma/client':
     specifier: 5.6.0
     version: 5.6.0(prisma@5.6.0)
+  '@tiptap/extension-text-align':
+    specifier: ^2.1.13
+    version: 2.1.13(@tiptap/core@2.1.13)
   '@tiptap/extension-underline':
     specifier: ^2.1.13
     version: 2.1.13(@tiptap/core@2.1.13)
@@ -2133,6 +2136,14 @@ packages:
 
   /@tiptap/extension-strike@2.1.13(@tiptap/core@2.1.13):
     resolution: {integrity: sha512-VN6zlaCNCbyJUCDyBFxavw19XmQ4LkCh8n20M8huNqW77lDGXA2A7UcWLHaNBpqAijBRu9mWI8l4Bftyf2fcAw==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.13(@tiptap/pm@2.1.13)
+    dev: false
+
+  /@tiptap/extension-text-align@2.1.13(@tiptap/core@2.1.13):
+    resolution: {integrity: sha512-ZmbGpi5FHGsWyzt+8DceXERr/Vwxhjpm2VKWZyFTVz8uNJVj+/ou196JQJZqxbp5VtKkS7UYujaO++G5eflb0Q==}
     peerDependencies:
       '@tiptap/core': ^2.0.0
     dependencies:
