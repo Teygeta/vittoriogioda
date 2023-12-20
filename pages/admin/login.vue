@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Button, buttonVariants } from '@/components/ui/button'
+
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
@@ -15,9 +17,9 @@ async function handleSignIn() {
 
 <template>
   <div class="mx-auto">
-    <button class="hover:bg-gray-200 bg-white py-2 px-4 rounded-md flex items-center gap-3" @click="handleSignIn">
+    <Button @click="handleSignIn">
       <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8" />
-      <p class="text-black font-semibold mr-2 tracking-tight">Accedi</p>
-    </button>
+      <p class="mr-2">Accedi</p>
+    </Button>
   </div>
 </template>

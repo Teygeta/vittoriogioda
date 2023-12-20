@@ -1,7 +1,9 @@
 {
   "cSpell.words": [
     "Gioda",
+    "heroicons",
     "Nuxt",
+    "signin",
     "trpc"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"

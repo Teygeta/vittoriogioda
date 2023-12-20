@@ -20,7 +20,9 @@
     "nuxt": "^3.8.1",
     "postcss": "^8.4.31",
     "prisma": "^5.6.0",
+    "shadcn-nuxt": "^0.1.0",
     "tailwindcss": "^3.3.5",
+    "typescript": "^5.3.3",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
@@ -31,7 +33,14 @@
     "@prisma/client": "5.6.0",
     "@trpc/client": "^10.44.1",
     "@trpc/server": "^10.44.1",
+    "@vueuse/core": "^10.7.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-vue-next": "^0.299.0",
     "next-auth": "4.21.1",
+    "radix-vue": "^1.2.5",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss-animate": "^1.0.7",
     "trpc-nuxt": "^0.10.13",
     "zod": "^3.22.4"
   }

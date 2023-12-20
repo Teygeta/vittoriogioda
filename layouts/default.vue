@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import { Button, buttonVariants } from '@/components/ui/button'
+</script>
 <template>
   <main class="flex flex-col min-h-screen">
     <nav
