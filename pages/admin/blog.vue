@@ -15,6 +15,10 @@ definePageMeta({
       <p class="text-muted-foreground">
         Manage posts
       </p>
+
+      <Card>
+        <TipTap />
+      </Card>
     </div>
 
   </div>
