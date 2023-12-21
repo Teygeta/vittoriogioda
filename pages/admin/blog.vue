@@ -4,6 +4,21 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { $trpc } = useNuxtApp()
+const postContent = ref('')
+async function createDraftPost() {
+try {
+  console.log(postContent.value)
+  // await $trpc.blog.createDraftPost.mutate({
+  //   title: 'New Post',
+  //   content: postContent.value,
+  //   authorId: 'clqfazty00000v9zafeqh6jee'
+  // })
+} catch (error) {
+
+}
+
+}
 </script>
 
 <template>
@@ -21,6 +36,12 @@ definePageMeta({
     <Card class="p-5 mt-5">
       <TipTap />
     </Card>
+
+    <Button @click="createDraftPost()">
+      Crea
+    </Button>
+
+    <pre><code>{{ postContent }}</code></pre>
 
   </div>
 </template>

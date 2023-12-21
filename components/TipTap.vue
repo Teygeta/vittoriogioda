@@ -26,6 +26,7 @@ const editor = useEditor({
   },
 })
 
+
 </script>
 
 <template>

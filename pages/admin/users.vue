@@ -4,6 +4,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { $trpc } = useNuxtApp()
+const { data } = await $trpc.users.paginateUsers.useQuery()
 </script>
 
 <template>
@@ -16,6 +18,5 @@ definePageMeta({
         Manage users
       </p>
     </div>
-
   </div>
 </template>

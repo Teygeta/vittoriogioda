@@ -24,11 +24,11 @@ export const blogRouter = router({
       }
     }),
 
-  createPost: publicProcedure
+  createDraftPost: publicProcedure
     .input(z.object({
       title: z.string(),
       content: z.string(),
-      authorId: z.number(),
+      authorId: z.string(),
     }))
     .mutation(async ({ input }) => {
       const post = await prisma.post.create({
@@ -46,7 +46,7 @@ export const blogRouter = router({
 
   deletePost: publicProcedure
     .input(z.object({
-      postId: z.number(),
+      postId: z.string(),
     }))
     .query(async ({ input }) => {
       const post = await prisma.post.update({
@@ -63,9 +63,9 @@ export const blogRouter = router({
       }
     }),
 
-    getPostById: publicProcedure
+  getPostById: publicProcedure
     .input(z.object({
-      postId: z.number(),
+      postId: z.string(),
     }))
     .query(async ({ input }) => {
       const post = await prisma.post.findUnique({
@@ -78,4 +78,6 @@ export const blogRouter = router({
         post,
       }
     }),
+
+
 })
