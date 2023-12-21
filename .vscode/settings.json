@@ -1,8 +1,86 @@
 {
+  // Enable the ESlint flat config support
+
   "cSpell.words": [
-    "Gioda",
     "Nuxt",
-    "trpc"
+    "trpc",
+    "unban"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+
+  "cSpell.enableFiletypes": [
+    "prisma"
+  ],
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    "vscode-extension",
+    ".git",
+    ".vscode",
+    ".vscode-insiders"
+  ],
+  "cSpell.blockCheckingWhenTextChunkSizeGreaterThan": 1500,
+
+  // Enable the ESlint flat config support
+  "eslint.experimental.useFlatConfig": true,
+
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
+  ],
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml"
+  ],
+
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.turbo": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.nuxt": true,
+    "**/.output": true,
+    "**/.turbo": true,
+    "**/.vercel": true
+  },
+
+  "vue.autoInsert.dotValue": false,
+  "vue.codeActions.enabled": false,
+
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "svg.preview.background": "editor"
 }
+

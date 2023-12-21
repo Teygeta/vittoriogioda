@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Button, buttonVariants } from '@/components/ui/button'
+
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
@@ -6,23 +8,18 @@ definePageMeta({
   },
 })
 
-const { status, signIn, signOut } = useAuth()
-
-const isSignedIn = computed(() => status.value === 'authenticated')
+const { signIn } = useAuth()
 
 async function handleSignIn() {
   await signIn('google', { callbackUrl: '/admin' })
-}
-
-async function handleSignOut() {
-  await signOut()
 }
 </script>
 
 <template>
   <div class="mx-auto">
-    <button v-if="!isSignedIn" @click="handleSignIn">Sign In</button>
-    <button v-else @click="handleSignOut">Sign Out</button>
-    <div>{{ status }}</div>
+    <Button @click="handleSignIn">
+      <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8" />
+      <p class="mr-2">Accedi</p>
+    </Button>
   </div>
 </template>

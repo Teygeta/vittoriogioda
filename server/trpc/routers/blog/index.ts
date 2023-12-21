@@ -5,7 +5,7 @@ import { publicProcedure, router } from '../../trpc'
 import { prisma } from '~/server/services/prisma'
 
 export const blogRouter = router({
-  paginatePost: publicProcedure
+  paginatePosts: publicProcedure
     .query(async ({ input }) => {
       const post = await prisma.post.findMany({
         where: {
@@ -24,11 +24,11 @@ export const blogRouter = router({
       }
     }),
 
-  createPost: publicProcedure
+  createDraftPost: publicProcedure
     .input(z.object({
       title: z.string(),
       content: z.string(),
-      authorId: z.number(),
+      authorId: z.string(),
     }))
     .mutation(async ({ input }) => {
       const post = await prisma.post.create({
@@ -46,7 +46,7 @@ export const blogRouter = router({
 
   deletePost: publicProcedure
     .input(z.object({
-      postId: z.number(),
+      postId: z.string(),
     }))
     .query(async ({ input }) => {
       const post = await prisma.post.update({
@@ -62,4 +62,22 @@ export const blogRouter = router({
         post,
       }
     }),
+
+  getPostById: publicProcedure
+    .input(z.object({
+      postId: z.string(),
+    }))
+    .query(async ({ input }) => {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: input.postId,
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
+
+
 })
