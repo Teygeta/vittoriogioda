@@ -5,7 +5,7 @@ import { publicProcedure, router } from '../../trpc'
 import { prisma } from '~/server/services/prisma'
 
 export const blogRouter = router({
-  paginatePost: publicProcedure
+  paginatePosts: publicProcedure
     .query(async ({ input }) => {
       const post = await prisma.post.findMany({
         where: {
@@ -55,6 +55,22 @@ export const blogRouter = router({
         },
         data: {
           deletedAt: new Date(),
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
+
+    getPostById: publicProcedure
+    .input(z.object({
+      postId: z.number(),
+    }))
+    .query(async ({ input }) => {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: input.postId,
         },
       })
 
