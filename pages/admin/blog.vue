@@ -7,16 +7,15 @@ definePageMeta({
 const { $trpc } = useNuxtApp()
 const postContent = ref('')
 async function createDraftPost() {
-try {
-  console.log(postContent.value)
-  // await $trpc.blog.createDraftPost.mutate({
-  //   title: 'New Post',
-  //   content: postContent.value,
-  //   authorId: 'clqfazty00000v9zafeqh6jee'
-  // })
-} catch (error) {
+  try {
+    await $trpc.blog.createDraftPost.mutate({
+      title: 'New Post',
+      content: postContent.value,
+      authorId: 'clqfazty00000v9zafeqh6jee'
+    })
+  } catch (error) {
 
-}
+  }
 
 }
 </script>
@@ -34,14 +33,10 @@ try {
     </div>
 
     <Card class="p-5 mt-5">
-      <TipTap />
+      <TipTap ref="editor" v-model="postContent" @submit="createDraftPost" />
     </Card>
 
-    <Button @click="createDraftPost()">
-      Crea
-    </Button>
-
-    <pre><code>{{ postContent }}</code></pre>
+    <!-- <pre><code>{{ postContent }}</code></pre> -->
 
   </div>
 </template>

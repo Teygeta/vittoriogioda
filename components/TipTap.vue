@@ -1,14 +1,31 @@
 
-<script setup>
+<script setup lang="ts">
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
-import { Bold, Italic, Dot, MessageSquareQuote, ListOrdered, Underline as UnderlineIcon, Code2, Code, Heading1, Heading2, Heading3 } from 'lucide-vue-next'
+import { Bold, AlignLeft, AlignRight, AlignCenter, Italic, Dot, MessageSquareQuote, ListOrdered, Underline as UnderlineIcon, Code2, Code, Heading1, Heading2, Heading3 } from 'lucide-vue-next'
 
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+  }
+})
+
+
+const emit = defineEmits<Emits>()
+interface Emits {
+  (eventName: 'submit'): void
+  (eventName: 'update:modelValue', modelValue: string): void
+}
 
 const editor = useEditor({
-  content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+  content: props.modelValue,
+  onUpdate: ({ editor }) => {
+    const html = editor.getHTML().replaceAll('<p></p>', '<p><br></p>')
+    emit('update:modelValue', html)
+  },
   extensions: [
     StarterKit,
     Underline,
@@ -31,19 +48,7 @@ const editor = useEditor({
 
 <template>
   <div>
-    <div v-if="editor" class="flex gap-1">
-      <button @click="editor.chain().focus().setTextAlign('left').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
-        left
-      </button>
-      <button @click="editor.chain().focus().setTextAlign('center').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
-        center
-      </button>
-      <button @click="editor.chain().focus().setTextAlign('right').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
-        right
-      </button>
+    <div v-if="editor" class="flex gap-1 p-2 my-2 border rounded">
       <button @click="editor.chain().focus().toggleBold().run()"
         :disabled="!editor.can().chain().focus().toggleBold().run()"
         :class="{ 'is-active text-white': editor.isActive('bold') }">
@@ -95,9 +100,30 @@ const editor = useEditor({
         :class="{ 'is-active text-white': editor.isActive('blockquote') }">
         <MessageSquareQuote :size="25" />
       </button>
+      <div class="mx-2 border-r"/>
+      <button @click="editor.chain().focus().setTextAlign('left').run()"
+        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
+        <AlignLeft :size="25" />
+      </button>
+      <button @click="editor.chain().focus().setTextAlign('center').run()"
+        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
+        <AlignCenter :size="25" />
+      </button>
+      <button @click="editor.chain().focus().setTextAlign('right').run()"
+        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
+        <AlignRight :size="25" />
+      </button>
     </div>
-    <div>
-      <editor-content :editor="editor" />
-    </div>
+
+    <EditorContent :editor="editor" />
+
+    <slot name="actions">
+      <div class="flex justify-end mt-2">
+        <Button type="button" class="flex justify-end cursor-pointer hover:opacity-75" @click="() => emit('submit')">
+          Crea
+        </Button>
+      </div>
+    </slot>
+
   </div>
 </template>
