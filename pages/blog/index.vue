@@ -13,7 +13,7 @@ const posts = computed(() => data.value?.post ?? [])
         v-for="post in posts" :key="post.id" :to="`/blog/${post.id}`">
         <div>
           <h1 class="text-2xl font-semibold">{{ post.title }}</h1>
-          <div class="prose" v-html="post.content" />
+          <div class="post-container" v-html="post.content" />
         </div>
       </nuxt-link>
     </div>

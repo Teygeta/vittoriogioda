@@ -35,15 +35,13 @@ const editor = useEditor({
   ],
   editorProps: {
     attributes: {
-      class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none border p-2 min-h-[200px]',
+      class: 'prose dark:prose-invert mx-auto focus:outline-none border p-2 min-h-[400px] w-full !max-w-none',
     },
     transformPastedText(text) {
       return text.toUpperCase()
     }
   },
 })
-
-
 </script>
 
 <template>

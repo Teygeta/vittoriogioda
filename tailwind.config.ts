@@ -1,9 +1,10 @@
+import typography from "@tailwindcss/typography"
 const animate = require("tailwindcss-animate")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  
+
   theme: {
     container: {
       center: true,
@@ -79,5 +80,5 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
+  plugins: [animate, typography],
 }
