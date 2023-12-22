@@ -19,23 +19,22 @@ export const usersRouter = router({
       }
     }),
 
-  paginatePosts: protectedProcedure
-  .query(async ({ input }) => {
-    const post = await prisma.post.findMany({
-      where: {
-        deletedAt: null,
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        createdAt: true,
-      }
-    })
+  getUserById: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: input.userId
+        }
+      })
 
-    return {
-      post,
-    }
-  }),
+      return {
+        user,
+      }
+    }),
 
 })

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { format } from "date-fns"
 import { Plus, Settings } from 'lucide-vue-next'
+import { Badge } from '@/components/ui/badge'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,7 +47,7 @@ async function createDraftPost() {
       </p>
     </div>
 
-    <Card class="flex flex-col my-3 gap-4 p-5">
+    <Card class="space-y-8 my-4 p-5">
       <div class="border-b pb-2 flex justify-between items-center">
         <h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">
           Recent posts
@@ -57,12 +58,32 @@ async function createDraftPost() {
         </Button>
       </div>
 
-      <Card class="p-4 space-y-4" v-for="post in posts" :key="post.id">
+      <Card class="p-4 space-y-5" v-for="post in posts" :key="post.id">
         <div class="flex justify-between">
           <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             {{ post.title }}
+            <Badge class="ml-1" v-if="!post.published">Not published</Badge>
+            <Badge class="ml-1" v-if="post.deletedAt" variant="destructive">Deleted</Badge>
           </h4>
-          <Settings :size="22" />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Settings :size="22" />
+
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem v-if="post.published">Hide</DropdownMenuItem>
+              <DropdownMenuItem v-else>Publish</DropdownMenuItem>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Read</DropdownMenuItem>
+              <NuxtLink :to="`/admin/users/${post.authorId}`">
+                <DropdownMenuItem>
+                  Author
+                </DropdownMenuItem>
+              </NuxtLink>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div class="text-ellipsis overflow-hidden max-h-16">
