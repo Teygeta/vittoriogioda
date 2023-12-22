@@ -5,7 +5,7 @@ definePageMeta({
 })
 
 const { $trpc } = useNuxtApp()
-const { data } = await $trpc.users.paginateUsers.useQuery()
+const { data } = await $trpc.admin.users.paginateUsers.useQuery()
 </script>
 
 <template>

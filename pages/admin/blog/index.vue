@@ -18,13 +18,13 @@ definePageMeta({
 
 const { $trpc } = useNuxtApp()
 
-const { data, refresh } = await $trpc.blog.paginatePosts.useQuery()
+const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery()
 const posts = computed(() => data.value?.posts ?? [])
 
 const postContent = ref('')
 async function createDraftPost() {
   try {
-    await $trpc.blog.createDraftPost.mutate({
+    await $trpc.admin.blog.createDraftPost.mutate({
       title: 'New Post',
       content: postContent.value,
       authorId: 'clqfazty00000v9zafeqh6jee'
@@ -37,7 +37,7 @@ async function createDraftPost() {
 
 async function publishPost(postId: string) {
   try {
-    await $trpc.blog.publishPost.mutate({
+    await $trpc.admin.blog.publishPost.mutate({
       postId,
     })
 
@@ -50,7 +50,7 @@ async function publishPost(postId: string) {
 
 async function unPublishPost(postId: string) {
   try {
-    await $trpc.blog.unPublishPost.mutate({
+    await $trpc.admin.blog.unPublishPost.mutate({
       postId,
     })
 
@@ -63,7 +63,7 @@ async function unPublishPost(postId: string) {
 
 async function deletePost(postId: string) {
   try {
-    await $trpc.blog.deletePost.mutate({
+    await $trpc.admin.blog.deletePost.mutate({
       postId,
     })
 
