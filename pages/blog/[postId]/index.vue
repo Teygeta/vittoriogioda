@@ -3,7 +3,7 @@ const route = useRoute()
 const postId = computed(() => route.params.postId as string)
 const { $trpc } = useNuxtApp()
 
-const { data } = await $trpc.blog.getPostById.useQuery({
+const { data } = await $trpc.user.blog.getPostById.useQuery({
   postId: postId.value
 })
 
