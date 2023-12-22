@@ -1,12 +1,12 @@
 import { z } from 'zod'
 import { protectedProcedure, router } from '../trpc'
 
-import { blogRouter } from './blog'
-import { usersRouter } from './users'
+import { adminRoutes } from './admin'
+import { userRoutes } from './user'
 
 export const appRouter = router({
-  blog: blogRouter,
-  users: usersRouter,
+  admin: adminRoutes,
+  user: userRoutes,
 })
 
 export type AppRouter = typeof appRouter

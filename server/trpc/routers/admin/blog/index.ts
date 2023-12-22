@@ -1,6 +1,6 @@
 
 import { z } from 'zod'
-import { publicProcedure, router } from '../../trpc'
+import { publicProcedure, router } from '../../../trpc'
 
 import { prisma } from '~/server/services/prisma'
 
@@ -59,25 +59,6 @@ export const blogRouter = router({
       }
     }),
 
-  deletePost: publicProcedure
-    .input(z.object({
-      postId: z.string(),
-    }))
-    .query(async ({ input }) => {
-      const post = await prisma.post.update({
-        where: {
-          id: input.postId,
-        },
-        data: {
-          deletedAt: new Date(),
-        },
-      })
-
-      return {
-        post,
-      }
-    }),
-
   getPostById: publicProcedure
     .input(z.object({
       postId: z.string(),
@@ -94,5 +75,60 @@ export const blogRouter = router({
       }
     }),
 
+  publishPost: publicProcedure
+    .input(z.object({
+      postId: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      const post = await prisma.post.update({
+        where: {
+          id: input.postId,
+        },
+        data: {
+          published: true,
+        },
+      })
 
+      return {
+        post,
+      }
+    }),
+
+  unPublishPost: publicProcedure
+    .input(z.object({
+      postId: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      const post = await prisma.post.update({
+        where: {
+          id: input.postId,
+        },
+        data: {
+          published: false,
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
+
+  deletePost: publicProcedure
+    .input(z.object({
+      postId: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      const post = await prisma.post.update({
+        where: {
+          id: input.postId,
+        },
+        data: {
+          deletedAt: new Date(),
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
 })

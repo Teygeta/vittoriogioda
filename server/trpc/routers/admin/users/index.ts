@@ -1,6 +1,7 @@
 
 import { z } from 'zod'
-import { protectedProcedure, publicProcedure, router } from '../../trpc'
+import { publicProcedure, router } from '../../../trpc'
+
 
 import { prisma } from '~/server/services/prisma'
 

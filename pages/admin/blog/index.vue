@@ -18,7 +18,7 @@ definePageMeta({
 
 const { $trpc } = useNuxtApp()
 
-const { data } = await $trpc.blog.paginatePosts.useQuery()
+const { data, refresh } = await $trpc.blog.paginatePosts.useQuery()
 const posts = computed(() => data.value?.posts ?? [])
 
 const postContent = ref('')
@@ -29,6 +29,45 @@ async function createDraftPost() {
       content: postContent.value,
       authorId: 'clqfazty00000v9zafeqh6jee'
     })
+  } catch (error) {
+
+  }
+
+}
+
+async function publishPost(postId: string) {
+  try {
+    await $trpc.blog.publishPost.mutate({
+      postId,
+    })
+
+    refresh()
+  } catch (error) {
+
+  }
+
+}
+
+async function unPublishPost(postId: string) {
+  try {
+    await $trpc.blog.unPublishPost.mutate({
+      postId,
+    })
+
+    refresh()
+  } catch (error) {
+
+  }
+
+}
+
+async function deletePost(postId: string) {
+  try {
+    await $trpc.blog.deletePost.mutate({
+      postId,
+    })
+
+    refresh()
   } catch (error) {
 
   }
@@ -62,7 +101,7 @@ async function createDraftPost() {
         <div class="flex justify-between">
           <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             {{ post.title }}
-            <Badge class="ml-1" v-if="!post.published">Not published</Badge>
+            <Badge class="ml-1" v-if="!post.published" variant="secondary">Not published</Badge>
             <Badge class="ml-1" v-if="post.deletedAt" variant="destructive">Deleted</Badge>
           </h4>
           <DropdownMenu>
@@ -71,12 +110,18 @@ async function createDraftPost() {
 
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem v-if="post.published">Hide</DropdownMenuItem>
-              <DropdownMenuItem v-else>Publish</DropdownMenuItem>
-              <DropdownMenuItem>Delete</DropdownMenuItem>
+              <NuxtLink :to="`/admin/blog/edit/${post.id}`">
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+              </NuxtLink>
+              <DropdownMenuItem @click="() => unPublishPost(post.id)" v-if="post.published">Hide</DropdownMenuItem>
+              <DropdownMenuItem @click="() => publishPost(post.id)" v-else>Publish</DropdownMenuItem>
+              <DropdownMenuItem @click="() => deletePost(post.id)">Delete</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Read</DropdownMenuItem>
+              <NuxtLink :to="`/blog/${post.id}`">
+                <DropdownMenuItem>
+                  Read
+                </DropdownMenuItem>
+              </NuxtLink>
               <NuxtLink :to="`/admin/users/${post.authorId}`">
                 <DropdownMenuItem>
                   Author
