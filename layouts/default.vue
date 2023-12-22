@@ -8,36 +8,36 @@ import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
       <div>
         <ul class="flex items-center gap-8">
           <li>
-            <nuxt-link
+            <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/">
               <Home :size="20" :stroke-width="2.2" />
               Home
-            </nuxt-link>
+            </NuxtLink>
           </li>
           <li>
-            <nuxt-link
+            <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/tools">
               <Wrench :size="20" :stroke-width="2.2" />
               Tools
-            </nuxt-link>
+            </NuxtLink>
           </li>
           <li>
-            <nuxt-link
+            <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/blog">
               <BookOpen  :size="20" :stroke-width="2.2" />
               Blog
-            </nuxt-link>
+            </NuxtLink>
           </li>
           <li>
-            <nuxt-link
+            <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/blog">
               <Camera  :size="20" :stroke-width="2.2" />
               Photos
-            </nuxt-link>
+            </NuxtLink>
           </li>
         </ul>
       </div>

@@ -20,11 +20,11 @@ const instanceId = computed(() => route.params.instanceid as string)
         Admin
       </h2>
       <div class="flex gap-2">
-        <NuxtLink to="/">
-          <Button>
+        <Button as-child>
+          <NuxtLink to="/">
             <Home :size="15" />
-          </Button>
-        </NuxtLink>
+          </NuxtLink>
+        </Button>
 
         <Button variant="destructive" @click="signOut">
           <Power :size="15" />
