@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next';
+import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
 </script>
 <template>
   <main class="flex flex-col min-h-screen">

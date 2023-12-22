@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { Plus } from 'lucide-vue-next';
+import { format } from "date-fns"
+import { Plus, Settings } from 'lucide-vue-next'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 definePageMeta({
   middleware: 'auth',
@@ -48,12 +57,22 @@ async function createDraftPost() {
         </Button>
       </div>
 
-      <Card class="p-4" v-for="post in posts" :key="post.id">
-        <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
-          {{ post.title }}
-        </h4>
+      <Card class="p-4 space-y-4" v-for="post in posts" :key="post.id">
+        <div class="flex justify-between">
+          <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
+            {{ post.title }}
+          </h4>
+          <Settings :size="22" />
+        </div>
+
         <div class="text-ellipsis overflow-hidden max-h-16">
           <div class="post-container" v-html="post.content" />
+        </div>
+
+        <div class="flex gap-2">
+          <p class="text-sm text-muted-foreground italic">
+            {{ format(new Date(post.createdAt), 'dd/MM/yyyy') }} - {{ post.author.username || 'Unknown' }}
+          </p>
         </div>
       </Card>
     </Card>

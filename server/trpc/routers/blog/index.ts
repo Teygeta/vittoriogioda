@@ -15,6 +15,14 @@ export const blogRouter = router({
           orderBy: {
             createdAt: 'desc',
           },
+          include: {
+            author: {
+              select: {
+                id: true,
+                username: true,
+              },
+            }
+          },
           // skip: input.skip,
           // take: input.take,
         }),

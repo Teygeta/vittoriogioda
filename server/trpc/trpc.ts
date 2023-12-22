@@ -19,6 +19,6 @@ const isAuthenticated = t.middleware(async ({ ctx: { session }, next }) => {
 })
 
 export const protectedProcedure = t.procedure.use(isAuthenticated)
-export const publicProcedure = t.procedure;
-export const router = t.router;
-export const middleware = t.middleware;
+export const publicProcedure = t.procedure
+export const router = t.router
+export const middleware = t.middleware
