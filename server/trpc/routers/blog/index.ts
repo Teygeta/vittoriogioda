@@ -6,21 +6,31 @@ import { prisma } from '~/server/services/prisma'
 
 export const blogRouter = router({
   paginatePosts: publicProcedure
-    .query(async ({ input }) => {
-      const post = await prisma.post.findMany({
-        where: {
-          deletedAt: null,
-        },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          createdAt: true,
-        }
-      })
+    .query(async () => {
+      const [posts, postCount] = await prisma.$transaction([
+        prisma.post.findMany({
+          where: {
+            deletedAt: null,
+          },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            createdAt: true,
+          },
+          // skip: input.skip,
+          // take: input.take,
+        }),
+        prisma.post.count({
+          where: {
+            deletedAt: null,
+          },
+        }),
+      ])
 
       return {
-        post,
+        posts,
+        postCount
       }
     }),
 
