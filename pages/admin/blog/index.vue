@@ -102,6 +102,7 @@ async function deletePost(postId: string) {
           <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             {{ post.title }}
             <Badge class="ml-1" v-if="!post.published" variant="secondary">Not published</Badge>
+            <Badge class="ml-1" v-else>Published</Badge>
             <Badge class="ml-1" v-if="post.deletedAt" variant="destructive">Deleted</Badge>
           </h4>
           <DropdownMenu>

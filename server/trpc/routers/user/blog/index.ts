@@ -11,6 +11,7 @@ export const blogRouter = router({
         prisma.post.findMany({
           where: {
             deletedAt: null,
+            published: true,
           },
           orderBy: {
             createdAt: 'desc',
