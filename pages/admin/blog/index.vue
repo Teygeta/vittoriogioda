@@ -91,9 +91,11 @@ async function deletePost(postId: string) {
         <h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">
           Recent posts
         </h3>
-        <Button class="flex gap-2">
-          <Plus :size="20" />
-          Add new
+        <Button as-child>
+          <NuxtLink to="/admin/blog/create-post" class="flex gap-2">
+            <Plus :size="20" />
+            Create
+          </NuxtLink>
         </Button>
       </div>
 
