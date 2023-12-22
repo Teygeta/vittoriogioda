@@ -12,11 +12,8 @@ export const blogRouter = router({
           where: {
             deletedAt: null,
           },
-          select: {
-            id: true,
-            title: true,
-            content: true,
-            createdAt: true,
+          orderBy: {
+            createdAt: 'desc',
           },
           // skip: input.skip,
           // take: input.take,
