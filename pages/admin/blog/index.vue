@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { format } from "date-fns"
-import { Plus, Settings, ChevronDown } from 'lucide-vue-next'
+import type { inferProcedureInput} from '@trpc/server'
+import { Plus, Settings } from 'lucide-vue-next'
+import type { AppRouter } from '~/server/trpc/routers'
+
 import { Badge } from '@/components/ui/badge'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -17,10 +19,18 @@ definePageMeta({
   layout: 'admin',
 })
 
-const { $trpc } = useNuxtApp()
+const filters = reactive<inferProcedureInput<AppRouter['admin']['blog']['paginatePosts']>>({
+  showDeleted: false,
+})
 
-const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery()
+const { $trpc } = useNuxtApp()
+const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery(
+  toRaw(filters)
+)
 const posts = computed(() => data.value?.posts ?? [])
+
+watch(filters, () => refresh())
+
 
 const postContent = ref('')
 async function createDraftPost() {
@@ -102,7 +112,9 @@ async function deletePost(postId: string) {
 
       <Card class="p-5">
         <div class="flex items-center space-x-2">
-          <Checkbox id="terms" />
+          <Checkbox id="terms"
+            @update:checked="filters.showDeleted = $event"
+          />
           <label for="terms"
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             Show deleted posts

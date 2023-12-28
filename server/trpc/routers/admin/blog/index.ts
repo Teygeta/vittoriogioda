@@ -6,9 +6,23 @@ import { prisma } from '~/server/services/prisma'
 
 export const blogRouter = router({
   paginatePosts: publicProcedure
-    .query(async () => {
+    .input(
+      z.object({
+        showDeleted: z.boolean().optional(),
+      })
+    )
+    .query(async ({ input }) => {
+
+      let where = {}
+      if (!input.showDeleted) {
+        where = {
+          deletedAt: null,
+        }
+      }
+
       const [posts, postCount] = await prisma.$transaction([
         prisma.post.findMany({
+          where,
           orderBy: {
             createdAt: 'desc',
           },
@@ -24,9 +38,7 @@ export const blogRouter = router({
           // take: input.take,
         }),
         prisma.post.count({
-          where: {
-            deletedAt: null,
-          },
+          where,
         }),
       ])
 
@@ -37,11 +49,13 @@ export const blogRouter = router({
     }),
 
   createDraftPost: publicProcedure
-    .input(z.object({
-      title: z.string(),
-      content: z.string(),
-      authorId: z.string(),
-    }))
+    .input(
+      z.object({
+        title: z.string(),
+        content: z.string(),
+        authorId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
       const post = await prisma.post.create({
         data: {
@@ -73,9 +87,11 @@ export const blogRouter = router({
     }),
 
   publishPost: publicProcedure
-    .input(z.object({
-      postId: z.string(),
-    }))
+    .input(
+      z.object({
+        postId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({
         where: {
@@ -92,9 +108,11 @@ export const blogRouter = router({
     }),
 
   unPublishPost: publicProcedure
-    .input(z.object({
-      postId: z.string(),
-    }))
+    .input(
+      z.object({
+        postId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({
         where: {
@@ -111,9 +129,11 @@ export const blogRouter = router({
     }),
 
   deletePost: publicProcedure
-    .input(z.object({
-      postId: z.string(),
-    }))
+    .input(
+      z.object({
+        postId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({
         where: {
