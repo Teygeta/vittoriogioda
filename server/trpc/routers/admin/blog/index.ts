@@ -9,9 +9,6 @@ export const blogRouter = router({
     .query(async () => {
       const [posts, postCount] = await prisma.$transaction([
         prisma.post.findMany({
-          where: {
-            deletedAt: null,
-          },
           orderBy: {
             createdAt: 'desc',
           },
@@ -124,6 +121,7 @@ export const blogRouter = router({
         },
         data: {
           deletedAt: new Date(),
+          published: false,
         },
       })
 

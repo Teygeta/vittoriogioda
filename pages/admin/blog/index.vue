@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { format } from "date-fns"
-import { Plus, Settings } from 'lucide-vue-next'
+import { Plus, Settings, ChevronDown } from 'lucide-vue-next'
 import { Badge } from '@/components/ui/badge'
 import {
   DropdownMenu,
@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Checkbox } from '@/components/ui/checkbox'
 
 definePageMeta({
   middleware: 'auth',
@@ -99,12 +100,22 @@ async function deletePost(postId: string) {
         </Button>
       </div>
 
+      <Card class="p-5">
+        <div class="flex items-center space-x-2">
+          <Checkbox id="terms" />
+          <label for="terms"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Show deleted posts
+          </label>
+        </div>
+      </Card>
+
       <Card class="p-4 space-y-5" v-for="post in posts" :key="post.id">
         <div class="flex justify-between">
           <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             {{ post.title }}
-            <Badge class="ml-1" v-if="!post.published" variant="secondary">Not published</Badge>
-            <Badge class="ml-1" v-else>Published</Badge>
+            <Badge class="ml-1" v-if="!post.published && !post.deletedAt" variant="secondary">Not published</Badge>
+            <Badge class="ml-1" v-else-if="post.published && !post.deletedAt">Published</Badge>
             <Badge class="ml-1" v-if="post.deletedAt" variant="destructive">Deleted</Badge>
           </h4>
           <DropdownMenu>
