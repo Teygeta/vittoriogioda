@@ -4,8 +4,13 @@ definePageMeta({
   layout: 'admin',
 })
 
+const route = useRoute()
+const userId = computed(() => route.params.id as string)
+
 const { $trpc } = useNuxtApp()
-const { data } = await $trpc.users.paginateUsers.useQuery()
+const { data } = await $trpc.admin.users.getUserById.useQuery({
+  userId: userId.value
+})
 </script>
 
 <template>
@@ -15,7 +20,7 @@ const { data } = await $trpc.users.paginateUsers.useQuery()
         Users
       </h2>
       <p class="text-muted-foreground">
-        Manage users
+        Manage users {{ data }}
       </p>
     </div>
   </div>

@@ -5,13 +5,18 @@ definePageMeta({
 })
 
 const { $trpc } = useNuxtApp()
+const user = useAuthUser()
+
+const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery()
+const posts = computed(() => data.value?.posts ?? [])
+
 const postContent = ref('')
 async function createDraftPost() {
   try {
-    await $trpc.blog.createDraftPost.mutate({
+    await $trpc.admin.blog.createDraftPost.mutate({
       title: 'New Post',
       content: postContent.value,
-      authorId: 'clqfazty00000v9zafeqh6jee'
+      authorId: user.id
     })
   } catch (error) {
 
@@ -22,14 +27,14 @@ async function createDraftPost() {
 
 <template>
   <div>
+    {{ user }}
     <div class="space-y-0.5">
       <h2 class="text-2xl font-bold tracking-tight">
-        Blog
+        Create
       </h2>
       <p class="text-muted-foreground">
-        Manage posts
+        Create new post
       </p>
-
     </div>
 
     <Card class="p-5 mt-5">
