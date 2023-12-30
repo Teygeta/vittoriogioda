@@ -34,8 +34,6 @@ export const blogRouter = router({
               },
             }
           },
-          // skip: input.skip,
-          // take: input.take,
         }),
         prisma.post.count({
           where,
