@@ -33,18 +33,6 @@ watch(filters, () => refresh())
 
 
 const postContent = ref('')
-async function createDraftPost() {
-  try {
-    await $trpc.admin.blog.createDraftPost.mutate({
-      title: 'New Post',
-      content: postContent.value,
-      authorId: 'clqfazty00000v9zafeqh6jee'
-    })
-  } catch (error) {
-
-  }
-
-}
 
 async function publishPost(postId: string) {
   try {
@@ -167,9 +155,6 @@ async function deletePost(postId: string) {
           </p>
         </div>
       </Card>
-    </Card>
-    <Card class="p-5 mt-5">
-      <TipTap ref="editor" v-model="postContent" @submit="createDraftPost" />
     </Card>
 
     <!-- <pre><code>{{ postContent }}</code></pre> -->

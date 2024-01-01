@@ -57,6 +57,14 @@ const instanceId = computed(() => route.params.instanceid as string)
                 </Button>
               </NuxtLink>
 
+              <NuxtLink custom to="/admin/images" #="{ isExactActive, href, navigate }">
+                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate">
+                  <BookOpen class="w-4 h-4 mr-2" />
+                  Images
+                </Button>
+              </NuxtLink>
+
               <NuxtLink custom to="/admin/users" #="{ isExactActive, href, navigate }">
                 <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
                   @click="navigate">
