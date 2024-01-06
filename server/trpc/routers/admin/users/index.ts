@@ -39,4 +39,22 @@ export const usersRouter = router({
       }
     }),
 
+    createUser: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const user = await prisma.user.create({
+        data: {
+          email: input.email,
+        }
+      })
+
+      return {
+        user,
+      }
+    }),
+
 })

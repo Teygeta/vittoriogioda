@@ -7,6 +7,7 @@ definePageMeta({
 const { $trpc } = useNuxtApp()
 const user = useAuthUser()
 
+// implement shadcn form
 const postContent = ref('')
 async function createDraftPost() {
   try {

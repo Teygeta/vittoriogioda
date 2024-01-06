@@ -4,23 +4,60 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
 
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+
 import { Input } from '@/components/ui/input'
+
+import { useToast } from '@/components/ui/toast/use-toast'
+import { useForm } from 'vee-validate'
+
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
+import { defaultTransformer } from '@trpc/server'
 
 definePageMeta({
   middleware: 'auth',
   layout: 'admin',
 })
 
+
 const { $trpc } = useNuxtApp()
-const { data } = await $trpc.admin.users.paginateUsers.useQuery()
+const { data, refresh } = await $trpc.admin.users.paginateUsers.useQuery()
 
 const users = computed(() => data.value?.users ?? [])
+
+const formSchema = toTypedSchema(z.object({
+  email: z.string().email(),
+}))
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const createUser = handleSubmit(async (values) => {
+
+  try {
+    const data = await $trpc.admin.users.createUser.query(values)
+
+    refresh()
+
+  } catch (error) {
+    // TODO: handle error
+  }
+
+})
+
 </script>
 
 <template>
@@ -54,19 +91,23 @@ const users = computed(() => data.value?.users ?? [])
             </DialogDescription>
           </DialogHeader>
 
-          <div>
-            <div class="grid w-full max-w-sm items-center gap-1.5">
-              <Label for="email">Email</Label>
-              <Input id="email" type="email" placeholder="test@example.com" />
-            </div>
-          </div>
-
-
-          <DialogFooter>
-            <Button @click="createUser">
+          <form class="w-2/3 space-y-6" @submit="createUser">
+            <FormField v-slot="{ componentField }" name="email">
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="example@text.com" v-bind="componentField" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+            <Button type="submit">
               Create
             </Button>
-          </DialogFooter>
+          </Form>
+
+
+
         </DialogContent>
       </Dialog>
     </div>
