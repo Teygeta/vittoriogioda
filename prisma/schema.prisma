@@ -25,6 +25,14 @@ model Post {
   // add events for tracking changes
 }
 
+// user role type
+enum UserRole {
+  ADMIN
+  USER
+  AUTHOR
+  MODERATOR
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -35,6 +43,8 @@ model User {
   username  String?
   firstName String?
   lastName  String?
+
+  role UserRole @default(USER)
 
   image String?
 

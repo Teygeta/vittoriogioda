@@ -25,7 +25,6 @@ async function createDraftPost() {
 
 <template>
   <div>
-    {{ user }}
     <div class="space-y-0.5">
       <h2 class="text-2xl font-bold tracking-tight">
         Create
@@ -38,8 +37,6 @@ async function createDraftPost() {
     <Card class="p-5 mt-5">
       <TipTap ref="editor" v-model="postContent" @submit="createDraftPost" />
     </Card>
-
-    <!-- <pre><code>{{ postContent }}</code></pre> -->
 
   </div>
 </template>
