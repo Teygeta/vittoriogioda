@@ -8,15 +8,16 @@ import { prisma } from '~/server/services/prisma'
 export const usersRouter = router({
   paginateUsers: publicProcedure
     .query(async ({ input }) => {
-      const user = await prisma.user.findMany({
+      const users = await prisma.user.findMany({
         select: {
           id: true,
           email: true,
+          username: true,
         }
       })
 
       return {
-        user,
+        users,
       }
     }),
 
