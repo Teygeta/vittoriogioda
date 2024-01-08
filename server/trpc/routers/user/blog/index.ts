@@ -20,7 +20,7 @@ export const blogRouter = router({
             author: {
               select: {
                 id: true,
-                username: true,
+                email: true,
               },
             }
           },

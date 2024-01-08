@@ -1,4 +1,14 @@
 <script setup lang="ts">
+
+async function sendEmail() {
+  try {
+
+  } catch (error) {
+    console.error(error)
+  }
+
+
+}
 </script>
 
 <template>
@@ -20,5 +30,8 @@
         more from YouTube. If you need something done tomorrow, hit me up today. #LazyGenius
       </p>
     </div>
+    <Button class="z-10 w-fit mx-auto mt-10" @click="sendEmail">
+      Invia
+    </Button>
   </div>
 </template>
