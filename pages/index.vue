@@ -1,14 +1,17 @@
 <script setup lang="ts">
+const { $trpc } = useNuxtApp()
+
 
 async function sendEmail() {
   try {
-
+   const data = await $trpc.user.resend.sendEmail.query()
+    console.log('Email sent')
+    console.log(data)
   } catch (error) {
     console.error(error)
   }
-
-
 }
+
 </script>
 
 <template>
