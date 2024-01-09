@@ -12,7 +12,6 @@ export const usersRouter = router({
         select: {
           id: true,
           email: true,
-          username: true,
         }
       })
 
