@@ -151,7 +151,7 @@ async function deletePost(postId: string) {
 
         <div class="flex gap-2">
           <p class="text-sm text-muted-foreground italic">
-            {{ format(new Date(post.createdAt), 'dd/MM/yyyy') }} - {{ post.author.username || 'Unknown' }}
+            {{ format(new Date(post.createdAt), 'dd/MM/yyyy') }} - {{ post.author.name || 'Unknown' }}
           </p>
         </div>
       </Card>

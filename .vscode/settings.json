@@ -25,7 +25,7 @@
 
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
 
   // Auto fix
   "editor.codeActionsOnSave": {
@@ -81,6 +81,11 @@
   "vue.codeActions.enabled": false,
 
   "typescript.tsdk": "node_modules/typescript/lib",
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnPaste": false,
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  }
 }
 

@@ -20,7 +20,8 @@ export const blogRouter = router({
         }
       }
 
-      const [posts, postCount] = await prisma.$transaction([
+      const [postCount ,posts ] = await prisma.$transaction([
+        prisma.post.count({ where }),
         prisma.post.findMany({
           where,
           orderBy: {
@@ -30,13 +31,10 @@ export const blogRouter = router({
             author: {
               select: {
                 id: true,
-                username: true,
+                name: true,
               },
             }
           },
-        }),
-        prisma.post.count({
-          where,
         }),
       ])
 

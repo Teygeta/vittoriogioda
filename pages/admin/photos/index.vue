@@ -1,4 +1,21 @@
 <script setup lang="ts">
+import { MoreVertical, ExternalLink, UploadCloud } from 'lucide-vue-next'
+
+import { Input } from '@/components/ui/input'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 definePageMeta({
   middleware: 'auth',
@@ -25,7 +42,7 @@ async function uploadImage() {
       image: file.value.name,
     })
 
-    console.log(blob)
+    refresh()
   } catch (error) {
     console.log(error)
   }
@@ -35,17 +52,91 @@ async function uploadImage() {
 
 <template>
   <div>
-    Images
-    <input @change="onFileChange" type="file">
+    <template>
+      <div>
+        <div>
+          <Dialog>
+            <DialogTrigger>
+              <Button>
+                <UploadCloud :size="20" class="mr-2" />
+                Upload
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Upload</DialogTitle>
+                <DialogDescription>
+                  Select a file to upload
+                </DialogDescription>
+              </DialogHeader>
 
-    <Button @click="uploadImage">
-      Upload
-    </Button>
-    <div v-if="file" class="border-t border-t-neutral-800">
-      {{ file.name }}
-    </div>
-    <div v-for="blob in blobs">
-      {{ blob.url }}
-    </div>
+              <Input @change="onFileChange" type="file" />
+
+              <DialogFooter>
+                <Button @click="uploadImage">Confirm</Button>
+              </DialogFooter>
+
+            </DialogContent>
+          </Dialog>
+        </div>
+
+
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>
+                  Pathname
+                </TableHead>
+                <TableHead>
+                  UploadedAt
+                </TableHead>
+                <TableHead class="text-right">
+                  Size
+                </TableHead>
+                <TableHead class="text-center">
+                  Edit
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              <TableRow v-for="blob in blobs" :key="blob.url">
+                <TableCell class="font-medium">
+                  {{ blob.pathname }}
+                </TableCell>
+                <TableCell>
+                  {{ blob.uploadedAt }}
+                </TableCell>
+                <TableCell class="text-right text-neutral-500">
+                  {{ blob.size }} bite
+                </TableCell>
+                <TableCell class="text-center">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Button variant="ghost">
+                        <MoreVertical :size="20" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem as-child class="hover:cursor-pointer">
+                        <a class="w-full flex justify-between items-center" target="_blank" :href="blob.url">
+                          Preview
+                          <ExternalLink :size="14" />
+                        </a>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem class="hover:cursor-pointer" @click="() => deleteBlob(blob)">
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Card>
+
+      </div>
+    </template>
   </div>
 </template>
