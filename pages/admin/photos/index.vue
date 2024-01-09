@@ -53,8 +53,20 @@ async function uploadImage() {
 <template>
   <div>
     <template>
-      <div>
-        <div>
+      <div class="flex flex-col gap-4">
+        <div class="flex justify-between">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight">
+              Photos
+            </h2>
+            <p class="text-muted-foreground">
+              Manage photos uploaded to
+              <a class="underline" target="_blank" href="https://vercel.com/docs/storage/vercel-blob">
+                Vercel Blob Storage
+              </a>
+            </p>
+          </div>
+
           <Dialog>
             <DialogTrigger>
               <Button>

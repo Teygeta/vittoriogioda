@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Power, BookOpen, Settings, CircleUser, Fingerprint, Home, ServerCog } from 'lucide-vue-next'
+import { Power, BookOpen, Settings, CircleUser, Home, Camera } from 'lucide-vue-next'
 
 import { Button } from '@/components/ui/button'
 
@@ -11,8 +11,6 @@ definePageMeta({
   layout: 'admin',
 })
 
-const route = useRoute()
-const instanceId = computed(() => route.params.instanceid as string)
 </script>
 
 <template>
@@ -62,7 +60,7 @@ const instanceId = computed(() => route.params.instanceid as string)
               <NuxtLink custom to="/admin/photos" #="{ isExactActive, href, navigate }">
                 <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
                   @click="navigate">
-                  <BookOpen class="w-4 h-4 mr-2" />
+                  <Camera class="w-4 h-4 mr-2" />
                   Photos
                 </Button>
               </NuxtLink>
