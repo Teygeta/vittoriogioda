@@ -1,6 +1,7 @@
 import { NuxtAuthHandler } from '#auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '../../services/prisma'
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
 export default NuxtAuthHandler({
   secret: process.env.AUTH_SECRET,
@@ -24,5 +25,6 @@ export default NuxtAuthHandler({
         }
       }
     })
-  ]
+  ],
+  adapter: PrismaAdapter(prisma),
 })
