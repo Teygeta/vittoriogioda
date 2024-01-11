@@ -4,7 +4,6 @@ import { Power, BookOpen, Settings, CircleUser, Home, Camera } from 'lucide-vue-
 import { Button } from '@/components/ui/button'
 
 const { signOut } = useAuth()
-const { data } = useAuth()
 
 const user = useAuthUser()
 
@@ -18,7 +17,7 @@ definePageMeta({
   <div class="container w-full mx-auto my-10">
     <div class="flex justify-between">
       <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
-        Admin <span class="font-medium text-sm ml-2 text-neutral-400">{{ user.name }} - {{ user.id }}</span>
+        Admin <span class="font-medium text-sm ml-2 text-neutral-400">{{ user.name }}</span>
       </h2>
       <div class="flex gap-2">
         <Button as-child>
