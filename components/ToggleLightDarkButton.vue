@@ -14,16 +14,18 @@ const isDark = computed({
 </script>
 
 <template>
-  <ClientOnly>
-    <button
-      class="rounded border group border-transparent px-2.5 py-1.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
-      aria-label="Theme" type="button" @click="isDark = !isDark">
-      <MoonIcon v-if="isDark" class="flex-shrink-0 w-5 h-5 group-hover:rotate-[20deg] transition" />
-      <SunIcon v-else class="flex-shrink-0 w-5 h-5 group-hover:rotate-[20deg] transition" />
-    </button>
+  <div>
+    <ClientOnly>
+      <button
+        class="rounded border group border-transparent px-2.5 py-1.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
+        aria-label="Theme" type="button" @click="isDark = !isDark">
+        <MoonIcon v-if="isDark" class="flex-shrink-0 w-5 h-5 group-hover:rotate-[20deg] transition" />
+        <SunIcon v-else class="flex-shrink-0 w-5 h-5 group-hover:rotate-[20deg] transition" />
+      </button>
 
-    <template #fallback>
-      <div class="w-8 h-8" />
-    </template>
-  </ClientOnly>
+      <template #fallback>
+        <div class="w-8 h-8" />
+      </template>
+    </ClientOnly>
+  </div>
 </template>

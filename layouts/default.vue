@@ -1,8 +1,22 @@
 <script setup lang="ts">
-import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
+import { Home, Mail, Github, BookOpen, Wrench, Camera } from 'lucide-vue-next'
+const { $trpc } = useNuxtApp()
+
+
+async function sendEmail() {
+  try {
+    const data = await $trpc.user.resend.sendEmail.query()
+    console.log('Email sent')
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
 </script>
 <template>
-  <main class="flex flex-col min-h-screen">
+  <main class="flex flex-col justify-between min-h-screen">
     <nav
       class="sticky top-0 z-50 flex items-center justify-between w-full max-w-6xl p-5 mx-auto backdrop-blur-md bg-opacity-40">
       <div>
@@ -27,7 +41,7 @@ import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
             <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/blog">
-              <BookOpen  :size="20" :stroke-width="2.2" />
+              <BookOpen :size="20" :stroke-width="2.2" />
               Blog
             </NuxtLink>
           </li>
@@ -35,7 +49,7 @@ import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
             <NuxtLink
               class="rounded flex gap-2 items-center border border-transparent p-2.5 text-gray-800 hover:border-gray-500/10 hover:bg-gray-200/30 dark:text-gray-200 dark:hover:bg-gray-800/30"
               to="/blog">
-              <Camera  :size="20" :stroke-width="2.2" />
+              <Camera :size="20" :stroke-width="2.2" />
               Photos
             </NuxtLink>
           </li>
@@ -51,7 +65,16 @@ import { Home, BookOpen, Wrench, Camera  } from 'lucide-vue-next'
       <slot />
     </div>
 
-    <footer>
+    <footer class="flex justify-center py-5 ">
+      <div>
+        <Button variant="ghost" class="w-fit mx-auto mt-10" @click="sendEmail">
+          <Mail :size="20" />
+        </Button>
+        <Button variant="ghost" class="w-fit mx-auto mt-10" @click="() => console.log('ok')">
+          <Github :size="20" />
+        </Button>
+      </div>
 
-  </footer>
-</main></template>
+    </footer>
+  </main>
+</template>

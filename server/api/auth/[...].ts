@@ -27,8 +27,4 @@ export default NuxtAuthHandler({
     })
   ],
   adapter: PrismaAdapter(prisma),
-
-  callbacks: {
-
-  }
 })
