@@ -20,7 +20,9 @@ definePageMeta({
       <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
         Admin <span class="text-sm ml-2 text-neutral-400">{{ user.name }}</span>
       </h2>
-      {{ data }}
+      <pre>
+        {{ data }}
+      </pre>
       <div class="flex gap-2">
         <Button as-child>
           <NuxtLink to="/">

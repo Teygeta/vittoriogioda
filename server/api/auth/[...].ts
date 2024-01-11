@@ -3,6 +3,10 @@ import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '../../services/prisma'
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
+async function getUserDetails() {
+
+}
+
 export default NuxtAuthHandler({
   secret: process.env.AUTH_SECRET,
 
@@ -13,7 +17,19 @@ export default NuxtAuthHandler({
     verifyRequest: '/admin/login',
   },
   callbacks: {
-
+    jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token
+        token.id = user?.id
+      }
+      return token
+    },
+    session: async ({ session, user }) => {
+      if (session?.user) {
+        session.user.id = user.id
+      }
+      return session
+    },
   },
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
