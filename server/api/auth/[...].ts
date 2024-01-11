@@ -12,6 +12,9 @@ export default NuxtAuthHandler({
     error: '/admin/login',
     verifyRequest: '/admin/login',
   },
+  callbacks: {
+
+  },
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     GoogleProvider.default({

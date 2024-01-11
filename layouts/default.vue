@@ -77,7 +77,7 @@ const navigationItems = computed(() => {
         <slot />
       </div>
 
-      <footer class="flex justify-center py-5">
+      <footer class="flex justify-center py-5 z-10">
         <div>
           <Button variant="ghost" class="w-fit mx-auto mt-10" @click="sendEmail">
             <Mail :size="20" />
