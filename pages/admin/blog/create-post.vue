@@ -14,7 +14,7 @@ async function createDraftPost() {
     await $trpc.admin.blog.createDraftPost.mutate({
       title: 'New Post',
       content: postContent.value,
-      authorId: '1'
+      authorId: user.value.id
     })
   } catch (error) {
 
