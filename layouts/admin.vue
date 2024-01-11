@@ -18,11 +18,8 @@ definePageMeta({
   <div class="container w-full mx-auto my-10">
     <div class="flex justify-between">
       <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
-        Admin <span class="text-sm ml-2 text-neutral-400">{{ user.name }}</span>
+        Admin <span class="font-medium text-sm ml-2 text-neutral-400">{{ user.name }} - {{ user.id }}</span>
       </h2>
-      <pre>
-        {{ data }}
-      </pre>
       <div class="flex gap-2">
         <Button as-child>
           <NuxtLink to="/">
