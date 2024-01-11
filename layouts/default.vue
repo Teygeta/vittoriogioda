@@ -82,8 +82,10 @@ const navigationItems = computed(() => {
           <Button variant="ghost" class="w-fit mx-auto mt-10" @click="sendEmail">
             <Mail :size="20" />
           </Button>
-          <Button variant="ghost" class="w-fit mx-auto mt-10" @click="() => console.log('ok')">
-            <Github :size="20" />
+          <Button variant="ghost" class="w-fit mx-auto mt-10" @click="() => console.log('ok')" as-child>
+            <a href="https://www.github.com/Teygeta" target="_blank">
+              <Github :size="20" />
+            </a>
           </Button>
         </div>
 
