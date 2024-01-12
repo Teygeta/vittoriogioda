@@ -21,7 +21,7 @@ definePageMeta({
       </h2>
       <div class="flex gap-2">
         <div>
-          <ToggleLightDarkButton />
+          <ToggleLightDarkButton /> .
         </div>
 
         <Button as-child>
