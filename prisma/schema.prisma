@@ -75,6 +75,8 @@ model User {
 
   name String?
 
+  banned Boolean?
+
   email         String?   @unique
   emailVerified DateTime?
 
