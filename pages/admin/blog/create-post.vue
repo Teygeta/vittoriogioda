@@ -35,7 +35,7 @@ async function createDraftPost() {
     </div>
 
     <Card class="p-5 mt-5">
-      <TipTap ref="editor" v-model="postContent" @submit="createDraftPost" />
+      <TipTap v-model="postContent" @submit="createDraftPost" />
     </Card>
   </div>
 </template>

@@ -44,7 +44,7 @@ async function uploadImage() {
     refresh()
   }
   catch (error) {
-    console.log(error)
+    //
   }
 }
 </script>

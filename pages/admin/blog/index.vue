@@ -31,8 +31,6 @@ const posts = computed(() => data.value?.posts ?? [])
 
 watch(filters, () => refresh())
 
-const postContent = ref('')
-
 async function publishPost(postId: string) {
   try {
     await $trpc.admin.blog.publishPost.mutate({
