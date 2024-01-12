@@ -17,7 +17,7 @@ const { data } = await $trpc.admin.users.getUserById.useQuery({
   <div>
     <div class="space-y-0.5">
       <h2 class="text-2xl font-bold tracking-tight">
-        Users
+        User
       </h2>
       <pre class="text-muted-foreground">
         Manage users {{ data }}

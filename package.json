@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "nuxt-app",
   "private": true,
   "compilerOptions": {
@@ -6,6 +7,7 @@
   },
   "scripts": {
     "build": "prisma generate && nuxt build",
+    "lint": "eslint .",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -52,6 +54,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^3.0.6",
     "enforce-unique": "^1.2.0",
+    "eslint": "^8.56.0",
     "lucide-vue-next": "^0.299.0",
     "next-auth": "4.21.1",
     "radix-vue": "^1.2.5",
