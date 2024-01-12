@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
-import { Plus } from 'lucide-vue-next'
+import { Plus, User } from 'lucide-vue-next'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Dialog,
   DialogContent,
@@ -129,35 +130,33 @@ const createUser = handleSubmit(async (values) => {
 
         <TableBody>
           <TableRow v-for="user in users" :key="user.id">
-            <TableCell class="font-medium">
+            <TableCell class="font-medium flex items-center gap-2">
+              <Avatar size="sm" class="h-8 w-8">
+                <AvatarImage :src="user.image || ''" alt="U" />
+                <AvatarFallback>
+                  <User :size="20" />
+                </AvatarFallback>
+              </Avatar>
               {{ user.name }}
             </TableCell>
             <TableCell>
               {{ user.email }}
             </TableCell>
             <TableCell>
-              <span
-                v-if="user.role === 'ADMIN'"
-                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
-              >
+              <span v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'USER'"
-                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
+              <span v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'AUTHOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >
+              <span v-else-if="user.role === 'AUTHOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'MODERATOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >
+              <span v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {{ user.role }}
               </span>
               <div v-else />
