@@ -20,6 +20,10 @@ definePageMeta({
         Admin <span class="font-medium text-sm ml-2 text-neutral-400">{{ user.name }}</span>
       </h2>
       <div class="flex gap-2">
+        <div>
+          <ToggleLightDarkButton />
+        </div>
+
         <Button as-child>
           <NuxtLink to="/">
             <Home :size="15" />
