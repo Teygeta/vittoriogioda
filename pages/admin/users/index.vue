@@ -153,7 +153,23 @@ const createUser = handleSubmit(async (values) => {
               {{ user.email }}
             </TableCell>
             <TableCell>
-              {{ user.role }}
+              <span v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'AUTHOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                {{ user.role }}
+              </span>
+              <div v-else />
             </TableCell>
             <TableCell>
               {{ format(user.createdAt, 'P') }}
