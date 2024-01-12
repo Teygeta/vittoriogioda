@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { format } from "date-fns"
-import type { inferProcedureInput} from '@trpc/server'
+import type { inferProcedureInput } from '@trpc/server'
 import { Plus, Settings } from 'lucide-vue-next'
 import type { AppRouter } from '~/server/trpc/routers'
 
@@ -76,7 +76,7 @@ async function deletePost(postId: string) {
 
 <template>
   <div>
-    <div class="space-y-0.5">
+    <div>
       <h2 class="text-2xl font-bold tracking-tight">
         Blog
       </h2>
@@ -100,9 +100,7 @@ async function deletePost(postId: string) {
 
       <Card class="p-5">
         <div class="flex items-center space-x-2">
-          <Checkbox id="terms"
-            @update:checked="filters.showDeleted = $event"
-          />
+          <Checkbox id="terms" @update:checked="filters.showDeleted = $event" />
           <label for="terms"
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             Show deleted posts

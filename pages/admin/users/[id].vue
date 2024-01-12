@@ -19,9 +19,9 @@ const { data } = await $trpc.admin.users.getUserById.useQuery({
       <h2 class="text-2xl font-bold tracking-tight">
         Users
       </h2>
-      <p class="text-muted-foreground">
+      <pre class="text-muted-foreground">
         Manage users {{ data }}
-      </p>
+      </pre>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Plus } from 'lucide-vue-next'
+import { format } from 'date-fns'
+import { MoreVertical, Plus, ExternalLink, UploadCloud } from 'lucide-vue-next'
 import {
   Dialog,
   DialogContent,
@@ -9,6 +10,22 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
+import { Input } from '@/components/ui/input'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+
 import {
   FormControl,
   FormField,
@@ -16,8 +33,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-
-import { Input } from '@/components/ui/input'
 
 import { useForm } from 'vee-validate'
 
@@ -109,10 +124,50 @@ const createUser = handleSubmit(async (values) => {
         </DialogContent>
       </Dialog>
     </div>
-    <div v-for="user in users" :key="user.id">
-      <nuxt-link :to="`/admin/users/${user.id}`">
-        {{ user.email }}
-      </nuxt-link>
-    </div>
+
+    <Card class="my-4">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>
+              Name
+            </TableHead>
+            <TableHead>
+              Email
+            </TableHead>
+            <TableHead>
+              Role
+            </TableHead>
+            <TableHead>
+              Created at
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          <TableRow v-for="user in users" :key="user.id">
+            <TableCell class="font-medium">
+              {{ user.name }}
+            </TableCell>
+            <TableCell>
+              {{ user.email }}
+            </TableCell>
+            <TableCell>
+              {{ user.role }}
+            </TableCell>
+            <TableCell>
+              {{ format(user.createdAt, 'P') }}
+            </TableCell>
+            <TableCell class="text-center">
+              <Button as-child variant="outline">
+                <NuxtLink :to="`/admin/users/${user.id}`">
+                  Details
+                </NuxtLink>
+              </Button>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Card>
   </div>
 </template>
