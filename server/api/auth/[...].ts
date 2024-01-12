@@ -1,7 +1,7 @@
-import { NuxtAuthHandler } from '#auth'
 import GoogleProvider from 'next-auth/providers/google'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '../../services/prisma'
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { NuxtAuthHandler } from '#auth'
 
 async function getUserDetails() {
 
@@ -41,9 +41,9 @@ export default NuxtAuthHandler({
           prompt: 'consent',
           access_type: 'offline',
           response_type: 'code',
-        }
-      }
-    })
+        },
+      },
+    }),
   ],
   adapter: PrismaAdapter(prisma),
 })

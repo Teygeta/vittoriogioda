@@ -1,5 +1,4 @@
-import { z } from 'zod'
-import { protectedProcedure, router } from '../trpc'
+import { router } from '../trpc'
 
 import { adminRoutes } from './admin'
 import { userRoutes } from './user'

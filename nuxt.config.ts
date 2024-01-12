@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@sidebase/nuxt-auth',
-    'shadcn-nuxt'
+    'shadcn-nuxt',
   ],
 
   shadcn: {
@@ -16,29 +16,29 @@ export default defineNuxtConfig({
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: './components/ui'
+    componentDir: './components/ui',
   },
 
   build: {
-    transpile: ['trpc-nuxt']
+    transpile: ['trpc-nuxt'],
   },
 
   auth: {
     provider: {
-      type: 'authjs'
-    }
+      type: 'authjs',
+    },
   },
 
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
   },
 
   devtools: {
-    enabled: true
+    enabled: true,
   },
 
   css: [
-    '~/assets/css/tailwind.css'
+    '~/assets/css/tailwind.css',
   ],
 
   postcss: {

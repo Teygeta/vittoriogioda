@@ -13,7 +13,6 @@ useHead({
     lang: 'en',
   },
 })
-
 </script>
 
 <template>

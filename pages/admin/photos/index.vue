@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MoreVertical, ExternalLink, UploadCloud } from 'lucide-vue-next'
+import { ExternalLink, MoreVertical, UploadCloud } from 'lucide-vue-next'
 
 import { Input } from '@/components/ui/input'
 import {
@@ -27,7 +27,6 @@ const { $trpc } = useNuxtApp()
 const { data, refresh } = await $trpc.admin.photos.paginatePhotosFromVercelStorage.useQuery()
 const blobs = computed(() => data.value?.blobs ?? [])
 
-
 const file = ref()
 function onFileChange(event: Event) {
   const files = (event.target as HTMLInputElement).files
@@ -43,11 +42,11 @@ async function uploadImage() {
     })
 
     refresh()
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
   }
 }
-
 </script>
 
 <template>
@@ -81,16 +80,16 @@ async function uploadImage() {
               </DialogDescription>
             </DialogHeader>
 
-            <Input @change="onFileChange" type="file" />
+            <Input type="file" @change="onFileChange" />
 
             <DialogFooter>
-              <Button @click="uploadImage">Confirm</Button>
+              <Button @click="uploadImage">
+                Confirm
+              </Button>
             </DialogFooter>
-
           </DialogContent>
         </Dialog>
       </div>
-
 
       <Card>
         <Table>

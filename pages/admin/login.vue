@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 
 definePageMeta({
   auth: {
@@ -18,8 +18,10 @@ async function handleSignIn() {
 <template>
   <div class="mx-auto">
     <Button @click="handleSignIn">
-      <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8" />
-      <p class="mr-2">Accedi</p>
+      <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8">
+      <p class="mr-2">
+        Accedi
+      </p>
     </Button>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Power, BookOpen, Settings, CircleUser, Home, Camera } from 'lucide-vue-next'
+import { BookOpen, Camera, CircleUser, Home, Power, Settings } from 'lucide-vue-next'
 
 import { Button } from '@/components/ui/button'
 
@@ -10,7 +10,6 @@ const user = useAuthUser()
 definePageMeta({
   layout: 'admin',
 })
-
 </script>
 
 <template>
@@ -36,51 +35,59 @@ definePageMeta({
       </div>
     </div>
 
-
     <div class="grid h-full py-4 lg:grid-cols-5 gap-x-4">
-
       <!-- Sidebar -->
       <div class="flex-col hidden h-full overflow-hidden lg:flex">
         <div class="flex flex-col justify-between flex-grow space-y-4">
           <div class="flex-grow space-y-4">
             <div class="space-y-1">
               <NuxtLink custom to="/admin" #="{ isExactActive, href, navigate }">
-                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
-                  @click="navigate">
+                <Button
+                  as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate"
+                >
                   <Home class="w-4 h-4 mr-2" />
                   Home
                 </Button>
               </NuxtLink>
 
               <NuxtLink custom to="/admin/blog" #="{ isExactActive, href, navigate }">
-                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
-                  @click="navigate">
+                <Button
+                  as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate"
+                >
                   <BookOpen class="w-4 h-4 mr-2" />
                   Blog
                 </Button>
               </NuxtLink>
 
               <NuxtLink custom to="/admin/photos" #="{ isExactActive, href, navigate }">
-                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
-                  @click="navigate">
+                <Button
+                  as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate"
+                >
                   <Camera class="w-4 h-4 mr-2" />
                   Photos
                 </Button>
               </NuxtLink>
 
               <NuxtLink custom to="/admin/users" #="{ isExactActive, href, navigate }">
-                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
-                  @click="navigate">
+                <Button
+                  as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate"
+                >
                   <CircleUser class="w-4 h-4 mr-2" />
                   Users
                 </Button>
               </NuxtLink>
 
-              <div class="border-t"></div>
+              <div class="border-t" />
 
               <NuxtLink custom to="/admin/settings" #="{ isExactActive, href, navigate }">
-                <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
-                  @click="navigate">
+                <Button
+                  as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full" :href="href"
+                  @click="navigate"
+                >
                   <Settings class="w-4 h-4 mr-2" />
                   Settings
                 </Button>

@@ -8,9 +8,4 @@ export default antfu({
     'node/prefer-global/buffer': ['error', 'always'],
     'node/prefer-global/process': ['error', 'always'],
   },
-  settings: {
-    nuxt: {
-      rootDir: ['apps/*/'],
-    },
-  },
 })

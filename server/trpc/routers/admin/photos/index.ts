@@ -1,7 +1,6 @@
-
 import { z } from 'zod'
+import { list, put } from '@vercel/blob'
 import { publicProcedure, router } from '../../../trpc'
-import { put, list } from '@vercel/blob'
 
 export const photosRouter = router({
   paginatePhotosFromVercelStorage: publicProcedure
@@ -9,20 +8,20 @@ export const photosRouter = router({
       const { blobs } = await list()
 
       return {
-        blobs
+        blobs,
       }
     }),
   uploadImageToVercelStorage: publicProcedure
     .input(
       z.object({
         image: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { url } = await put(`photos/${input.image}`, 'Hello World!', { access: 'public' })
 
       return {
-        blob: url
+        blob: url,
       }
-    })
+    }),
 })

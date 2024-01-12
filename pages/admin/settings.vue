@@ -3,7 +3,6 @@ definePageMeta({
   middleware: 'auth',
   layout: 'admin',
 })
-
 </script>
 
 <template>
@@ -16,6 +15,5 @@ definePageMeta({
         Manage settings
       </p>
     </div>
-
   </div>
 </template>

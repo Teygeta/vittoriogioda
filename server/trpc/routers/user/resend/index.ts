@@ -1,9 +1,7 @@
-
-import { z } from 'zod'
+import { Resend } from 'resend'
 import { publicProcedure, router } from '../../../trpc'
-import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const resendRouter = router({
   sendEmail: publicProcedure
@@ -14,9 +12,9 @@ export const resendRouter = router({
       const data = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: ['giodavittorio@gmail.com'],
-        subject: "Hello world",
-        html: "<strong>It works!</strong>",
-      });
+        subject: 'Hello world',
+        html: '<strong>It works!</strong>',
+      })
 
       return {
         data,

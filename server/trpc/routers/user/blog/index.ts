@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { publicProcedure, router } from '../../../trpc'
 
@@ -22,7 +21,7 @@ export const blogRouter = router({
                 id: true,
                 email: true,
               },
-            }
+            },
           },
           // skip: input.skip,
           // take: input.take,
@@ -36,7 +35,7 @@ export const blogRouter = router({
 
       return {
         posts,
-        postCount
+        postCount,
       }
     }),
 

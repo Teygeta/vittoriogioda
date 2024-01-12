@@ -1,4 +1,3 @@
-
 import { z } from 'zod'
 import { publicProcedure, router } from '../../../trpc'
 
@@ -9,10 +8,9 @@ export const blogRouter = router({
     .input(
       z.object({
         showDeleted: z.boolean().optional(),
-      })
+      }),
     )
     .query(async ({ input }) => {
-
       let where = {}
       if (!input.showDeleted) {
         where = {
@@ -20,7 +18,7 @@ export const blogRouter = router({
         }
       }
 
-      const [postCount ,posts ] = await prisma.$transaction([
+      const [postCount, posts] = await prisma.$transaction([
         prisma.post.count({ where }),
         prisma.post.findMany({
           where,
@@ -33,14 +31,14 @@ export const blogRouter = router({
                 id: true,
                 name: true,
               },
-            }
+            },
           },
         }),
       ])
 
       return {
         posts,
-        postCount
+        postCount,
       }
     }),
 
@@ -50,7 +48,7 @@ export const blogRouter = router({
         title: z.string(),
         content: z.string(),
         authorId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const post = await prisma.post.create({
@@ -86,7 +84,7 @@ export const blogRouter = router({
     .input(
       z.object({
         postId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({
@@ -107,7 +105,7 @@ export const blogRouter = router({
     .input(
       z.object({
         postId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({
@@ -128,7 +126,7 @@ export const blogRouter = router({
     .input(
       z.object({
         postId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const post = await prisma.post.update({

@@ -1,18 +1,16 @@
-
 <script setup lang="ts">
-import { useEditor, EditorContent } from '@tiptap/vue-3'
+import { EditorContent, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
-import { Bold, AlignLeft, AlignRight, AlignCenter, Italic, Dot, MessageSquareQuote, ListOrdered, Underline as UnderlineIcon, Code2, Code, Heading1, Heading2, Heading3 } from 'lucide-vue-next'
+import { AlignCenter, AlignLeft, AlignRight, Bold, Code, Code2, Dot, Heading1, Heading2, Heading3, Italic, ListOrdered, MessageSquareQuote, Underline as UnderlineIcon } from 'lucide-vue-next'
 
 const props = defineProps({
   modelValue: {
     type: String,
     default: '',
-  }
+  },
 })
-
 
 const emit = defineEmits<Emits>()
 interface Emits {
@@ -39,7 +37,7 @@ const editor = useEditor({
     },
     transformPastedText(text) {
       return text.toUpperCase()
-    }
+    },
   },
 })
 </script>
@@ -47,68 +45,100 @@ const editor = useEditor({
 <template>
   <div>
     <div v-if="editor" class="flex gap-1 p-2 my-2 border rounded">
-      <button @click="editor.chain().focus().toggleBold().run()"
+      <button
         :disabled="!editor.can().chain().focus().toggleBold().run()"
-        :class="{ 'is-active text-white': editor.isActive('bold') }">
+        :class="{ 'is-active text-white': editor.isActive('bold') }"
+        @click="editor.chain().focus().toggleBold().run()"
+      >
         <Bold :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleItalic().run()"
+      <button
         :disabled="!editor.can().chain().focus().toggleItalic().run()"
-        :class="{ 'is-active text-white': editor.isActive('italic') }">
+        :class="{ 'is-active text-white': editor.isActive('italic') }"
+        @click="editor.chain().focus().toggleItalic().run()"
+      >
         <Italic :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleUnderline().run()"
-        :class="{ 'is-active text-white': editor.isActive('underline') }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('underline') }"
+        @click="editor.chain().focus().toggleUnderline().run()"
+      >
         <UnderlineIcon :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleCode().run()"
+      <button
         :disabled="!editor.can().chain().focus().toggleCode().run()"
-        :class="{ 'is-active text-white': editor.isActive('code') }">
+        :class="{ 'is-active text-white': editor.isActive('code') }"
+        @click="editor.chain().focus().toggleCode().run()"
+      >
         <Code :size="25" />
       </button>
-      <button @click="editor.chain().focus().setParagraph().run()"
-        :class="{ 'is-active text-white': editor.isActive('paragraph') }">
-        <div class="text-xl">P</div>
+      <button
+        :class="{ 'is-active text-white': editor.isActive('paragraph') }"
+        @click="editor.chain().focus().setParagraph().run()"
+      >
+        <div class="text-xl">
+          P
+        </div>
       </button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-        :class="{ 'is-active text-white': editor.isActive('heading', { level: 1 }) }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('heading', { level: 1 }) }"
+        @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
+      >
         <Heading1 :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-        :class="{ 'is-active text-white': editor.isActive('heading', { level: 2 }) }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('heading', { level: 2 }) }"
+        @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+      >
         <Heading2 :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-        :class="{ 'is-active text-white': editor.isActive('heading', { level: 3 }) }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('heading', { level: 3 }) }"
+        @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
+      >
         <Heading3 :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleBulletList().run()"
-        :class="{ 'is-active text-white': editor.isActive('bulletList') }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('bulletList') }"
+        @click="editor.chain().focus().toggleBulletList().run()"
+      >
         <Dot :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleOrderedList().run()"
-        :class="{ 'is-active text-white': editor.isActive('orderedList') }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('orderedList') }"
+        @click="editor.chain().focus().toggleOrderedList().run()"
+      >
         <ListOrdered :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleCodeBlock().run()"
-        :class="{ 'is-active text-white': editor.isActive('codeBlock') }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('codeBlock') }"
+        @click="editor.chain().focus().toggleCodeBlock().run()"
+      >
         <Code2 :size="25" />
       </button>
-      <button @click="editor.chain().focus().toggleBlockquote().run()"
-        :class="{ 'is-active text-white': editor.isActive('blockquote') }">
+      <button
+        :class="{ 'is-active text-white': editor.isActive('blockquote') }"
+        @click="editor.chain().focus().toggleBlockquote().run()"
+      >
         <MessageSquareQuote :size="25" />
       </button>
-      <div class="mx-2 border-r"/>
-      <button @click="editor.chain().focus().setTextAlign('left').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
+      <div class="mx-2 border-r" />
+      <button
+        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
+        @click="editor.chain().focus().setTextAlign('left').run()"
+      >
         <AlignLeft :size="25" />
       </button>
-      <button @click="editor.chain().focus().setTextAlign('center').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
+      <button
+        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
+        @click="editor.chain().focus().setTextAlign('center').run()"
+      >
         <AlignCenter :size="25" />
       </button>
-      <button @click="editor.chain().focus().setTextAlign('right').run()"
-        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
+      <button
+        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
+        @click="editor.chain().focus().setTextAlign('right').run()"
+      >
         <AlignRight :size="25" />
       </button>
     </div>
@@ -122,6 +152,5 @@ const editor = useEditor({
         </Button>
       </div>
     </slot>
-
   </div>
 </template>

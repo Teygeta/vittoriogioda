@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { format } from 'date-fns'
-import { MoreVertical, Plus, ExternalLink, UploadCloud } from 'lucide-vue-next'
+import { Plus } from 'lucide-vue-next'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
 import {
   Dialog,
   DialogContent,
@@ -19,12 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 
 import {
   FormControl,
@@ -34,16 +31,10 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 
-import { useForm } from 'vee-validate'
-
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
-
 definePageMeta({
   middleware: 'auth',
   layout: 'admin',
 })
-
 
 const { $trpc } = useNuxtApp()
 const { data, refresh } = await $trpc.admin.users.paginateUsers.useQuery()
@@ -59,18 +50,15 @@ const { handleSubmit } = useForm({
 })
 
 const createUser = handleSubmit(async (values) => {
-
   try {
     const data = await $trpc.admin.users.createUser.query(values)
 
     refresh()
-
-  } catch (error) {
+  }
+  catch (error) {
     // TODO: handle error
   }
-
 })
-
 </script>
 
 <template>
@@ -84,8 +72,6 @@ const createUser = handleSubmit(async (values) => {
           Manage users
         </p>
       </div>
-
-
 
       <Dialog>
         <DialogTrigger>
@@ -118,9 +104,6 @@ const createUser = handleSubmit(async (values) => {
               Create
             </Button>
           </Form>
-
-
-
         </DialogContent>
       </Dialog>
     </div>
@@ -153,20 +136,28 @@ const createUser = handleSubmit(async (values) => {
               {{ user.email }}
             </TableCell>
             <TableCell>
-              <span v-if="user.role === 'ADMIN'"
-                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+              <span
+                v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
+              >
                 {{ user.role }}
               </span>
-              <span v-else-if="user.role === 'USER'"
-                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+              <span
+                v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+              >
                 {{ user.role }}
               </span>
-              <span v-else-if="user.role === 'AUTHOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+              <span
+                v-else-if="user.role === 'AUTHOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+              >
                 {{ user.role }}
               </span>
-              <span v-else-if="user.role === 'MODERATOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+              <span
+                v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+              >
                 {{ user.role }}
               </span>
               <div v-else />

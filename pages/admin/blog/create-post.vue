@@ -14,12 +14,12 @@ async function createDraftPost() {
     await $trpc.admin.blog.createDraftPost.mutate({
       title: 'New Post',
       content: postContent.value,
-      authorId: user.value.id
+      authorId: user.value.id,
     })
-  } catch (error) {
+  }
+  catch (error) {
 
   }
-
 }
 </script>
 
@@ -37,6 +37,5 @@ async function createDraftPost() {
     <Card class="p-5 mt-5">
       <TipTap ref="editor" v-model="postContent" @submit="createDraftPost" />
     </Card>
-
   </div>
 </template>

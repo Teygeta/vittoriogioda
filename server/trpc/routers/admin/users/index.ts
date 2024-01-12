@@ -1,7 +1,5 @@
-
 import { z } from 'zod'
 import { publicProcedure, router } from '../../../trpc'
-
 
 import { prisma } from '~/server/services/prisma'
 
@@ -19,13 +17,13 @@ export const usersRouter = router({
     .input(
       z.object({
         userId: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const user = await prisma.user.findUnique({
         where: {
-          id: input.userId
-        }
+          id: input.userId,
+        },
       })
 
       return {
@@ -37,13 +35,13 @@ export const usersRouter = router({
     .input(
       z.object({
         email: z.string(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const user = await prisma.user.create({
         data: {
           email: input.email,
-        }
+        },
       })
 
       return {

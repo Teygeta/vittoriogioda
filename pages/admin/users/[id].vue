@@ -9,7 +9,7 @@ const userId = computed(() => route.params.id as string)
 
 const { $trpc } = useNuxtApp()
 const { data } = await $trpc.admin.users.getUserById.useQuery({
-  userId: userId.value
+  userId: userId.value,
 })
 </script>
 
