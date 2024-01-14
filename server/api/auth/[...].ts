@@ -3,10 +3,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '../../services/prisma'
 import { NuxtAuthHandler } from '#auth'
 
-async function getUserDetails() {
-
-}
-
 export default NuxtAuthHandler({
   secret: process.env.AUTH_SECRET,
 
@@ -27,6 +23,17 @@ export default NuxtAuthHandler({
     session: async ({ session, user }) => {
       if (session?.user) {
         session.user.id = user.id
+
+        const userData = await prisma.user.findUnique({
+          where: {
+            id: session.user.id,
+          },
+        })
+
+        if (userData!.banned) {
+          throw new Error('Banned');
+        }
+
       }
       return session
     },

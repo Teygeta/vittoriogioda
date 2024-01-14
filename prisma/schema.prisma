@@ -84,6 +84,7 @@ model User {
   role  UserRole?
 
   createdAt DateTime @default(now())
+  deletedAt DateTime?
   updatedAt DateTime @updatedAt
 
   accounts Account[]

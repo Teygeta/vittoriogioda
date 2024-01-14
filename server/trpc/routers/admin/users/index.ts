@@ -49,4 +49,65 @@ export const usersRouter = router({
       }
     }),
 
+  deleteUser: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.update({
+        where: {
+          id: input.userId,
+        },
+        data: {
+          deletedAt: new Date()
+        }
+      })
+    }),
+
+
+  banUser: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.update({
+        where: {
+          id: input.userId,
+        },
+        data: {
+          banned: true
+        }
+      })
+
+      return {
+        user,
+      }
+    }),
+
+  unbanUser: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.update({
+        where: {
+          id: input.userId,
+        },
+        data: {
+          banned: false
+        }
+      })
+
+      return {
+        user,
+      }
+    }),
+
+
 })
