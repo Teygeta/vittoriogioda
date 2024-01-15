@@ -111,6 +111,9 @@ const createUser = handleSubmit(async (values) => {
                 </AvatarFallback>
               </Avatar>
               {{ user.name }}
+              <Badge v-if="user.banned" variant="destructive">
+                Banned
+              </Badge>
             </TableCell>
             <TableCell>
               {{ user.email }}

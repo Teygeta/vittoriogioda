@@ -131,7 +131,7 @@ async function unbanUser() {
         </h2>
         <pre class="text-muted-foreground">
         Manage users {{ data }}
-      </pre>
+        </pre>
       </div>
 
       <div class="space-y-8 my-10">
@@ -305,8 +305,5 @@ async function unbanUser() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-
-
-
   </div>
 </template>
