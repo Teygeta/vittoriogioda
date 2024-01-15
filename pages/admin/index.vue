@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth'],
   layout: 'admin',
 })
 </script>
@@ -9,7 +9,7 @@ definePageMeta({
   <div>
     <div class="space-y-0.5">
       <h2 class="text-2xl font-bold tracking-tight">
-        Dashboard
+        Home
       </h2>
       <p class="text-muted-foreground">
         Manage all platform content

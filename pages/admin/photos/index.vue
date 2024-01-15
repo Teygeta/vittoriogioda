@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth', 'user-role'],
   layout: 'admin',
 })
 

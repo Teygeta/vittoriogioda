@@ -5,7 +5,7 @@ import { Loader2, Plus, Trash2, UserRound } from 'lucide-vue-next'
 
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth', 'user-role'],
   layout: 'admin',
 })
 

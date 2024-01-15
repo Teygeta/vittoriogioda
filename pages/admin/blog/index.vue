@@ -15,7 +15,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth', 'user-role'],
   layout: 'admin',
 })
 
@@ -98,10 +98,8 @@ async function deletePost(postId: string) {
       <Card class="p-5">
         <div class="flex items-center space-x-2">
           <Checkbox id="terms" @update:checked="filters.showDeleted = $event" />
-          <label
-            for="terms"
-            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
+          <label for="terms"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             Show deleted posts
           </label>
         </div>

@@ -6,7 +6,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth', 'user-role'],
   layout: 'admin',
 })
 
@@ -132,7 +132,7 @@ const createUser = handleSubmit(async (values) => {
                 class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {{ user.role }}
               </span>
-              <div v-else />
+              <span v-else />
             </TableCell>
             <TableCell>
               {{ format(user.createdAt, 'P') }}
