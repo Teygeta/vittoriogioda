@@ -24,16 +24,22 @@ export default NuxtAuthHandler({
       if (session?.user) {
         session.user.id = user.id
 
+
         const userData = await prisma.user.findUnique({
           where: {
             id: session.user.id,
           },
+          select: {
+            banned: true,
+            role: true,
+          }
         })
 
         if (userData!.banned) {
           throw new Error('Banned');
         }
 
+        session.user.role = userData!.role
       }
       return session
     },

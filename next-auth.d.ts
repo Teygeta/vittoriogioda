@@ -13,6 +13,7 @@ declare module 'next-auth' {
       name: User['name']
       image: User['image']
       email: User['email']
+      role: User['role']
     }
   }
 }
