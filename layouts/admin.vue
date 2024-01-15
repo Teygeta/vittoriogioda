@@ -29,7 +29,7 @@ definePageMeta({
               {{ user.role }}
             </span>
             <span v-else-if="user.role === 'AUTHOR'"
-              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
               {{ user.role }}
             </span>
             <span v-else-if="user.role === 'MODERATOR'"

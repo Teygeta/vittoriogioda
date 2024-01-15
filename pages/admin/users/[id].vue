@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { UserRole } from '@prisma/client'
 import { format } from 'date-fns'
 import { useToast } from '@/components/ui/toast/use-toast'
-import { Loader2, Plus, Trash2, UserRound } from 'lucide-vue-next'
-
+import { Loader2, ChevronDown, UserRound } from 'lucide-vue-next'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
@@ -18,6 +18,9 @@ const { data, refresh } = await $trpc.admin.users.getUserById.useQuery({
 })
 
 const user = computed(() => data.value?.user || null)
+
+const userRoles: UserRole[] = ['ADMIN', 'USER', 'AUTHOR', 'MODERATOR']
+const editRoleIsOpen = ref(false)
 
 const submitting = ref(false)
 
@@ -192,6 +195,87 @@ async function unbanUser() {
               </li>
             </ul>
           </div>
+        </Card>
+
+        <Card class="flex items-start p-8">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold">
+              User role:
+            </h3>
+            <p class="text-sm text-muted-foreground">
+              <span v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'AUTHOR'"
+                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                {{ user.role }}
+              </span>
+              <span v-else>
+                No role
+              </span>
+            </p>
+          </div>
+
+          <Collapsible v-model:open="editRoleIsOpen">
+            <CollapsibleTrigger>
+              <Button>
+                <ChevronDown class="w-4 h-4" />
+                Edit
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <form class="flex gap-2" @submit="onSubmit">
+                <FormField v-slot="{ componentField }" name="email">
+                  <FormItem>
+                    <Select class="focus" v-bind="componentField">
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Change role" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
+                            <span v-if="role === 'ADMIN'"
+                              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                              {{ role }}
+                            </span>
+                            <span v-else-if="role === 'USER'"
+                              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                              {{ role }}
+                            </span>
+                            <span v-else-if="role === 'AUTHOR'"
+                              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
+                              {{ role }}
+                            </span>
+                            <span v-else-if="role === 'MODERATOR'"
+                              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                              {{ role }}
+                            </span>
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                </FormField>
+
+                <Button type="submit">
+                  Submit
+                </Button>
+              </form>
+            </CollapsibleContent>
+          </Collapsible>
+
         </Card>
 
         <Card v-if="!user.banned" class="flex items-start p-8">
