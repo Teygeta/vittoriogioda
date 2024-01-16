@@ -52,7 +52,7 @@ async function deleteUser() {
   }
   catch (e: any) {
     toast({
-      title: 'Error',
+      title: '❌Error',
       description: e.message,
     })
   }
@@ -83,7 +83,7 @@ async function banUser() {
   }
   catch (e: any) {
     toast({
-      title: 'Error',
+      title: '❌Error',
       description: e.message,
     })
   }
@@ -114,7 +114,7 @@ async function unbanUser() {
   }
   catch (e: any) {
     toast({
-      title: 'Error',
+      title: '❌Error',
       description: e.message,
     })
   }
@@ -139,7 +139,7 @@ async function changeUserRole() {
   }
   catch (e: any) {
     toast({
-      title: 'Error',
+      title: '❌Error',
       description: e.message,
     })
   }

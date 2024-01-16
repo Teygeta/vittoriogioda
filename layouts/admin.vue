@@ -98,7 +98,7 @@ definePageMeta({
                     </Button>
                   </NuxtLink>
 
-                  <!-- <div class="border-t" />
+                  <div class="border-t" />
 
                   <NuxtLink custom to="/admin/settings" #="{ isExactActive, href, navigate }">
                     <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
@@ -106,7 +106,7 @@ definePageMeta({
                       <Settings class="w-4 h-4 mr-2" />
                       Settings
                     </Button>
-                  </NuxtLink> -->
+                  </NuxtLink>
                 </div>
               </div>
             </div>

@@ -12,7 +12,7 @@ definePageMeta({
         Settings
       </h2>
       <p class="text-muted-foreground">
-        Manage settings
+        Manage personal information
       </p>
     </div>
   </div>

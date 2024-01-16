@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useToast } from '@/components/ui/toast/use-toast'
+
 definePageMeta({
   middleware: ['auth', 'user-role'],
   layout: 'admin',
@@ -6,19 +8,37 @@ definePageMeta({
 
 const { $trpc } = useNuxtApp()
 const user = useAuthUser()
+const { toast } = useToast()
 
-// implement shadcn form
+const submitting = ref(false)
+
+const postTitle = ref('')
 const postContent = ref('')
 async function createDraftPost() {
+  submitting.value = true
+
   try {
     await $trpc.admin.blog.createDraftPost.mutate({
-      title: 'New Post',
+      title: postTitle.value,
       content: postContent.value,
       authorId: user.value.id,
     })
-  }
-  catch (error) {
 
+    toast({
+      title: '🎉Draft post created',
+      description: 'Successfully created a new draft post, whaiting for publish',
+    })
+
+    submitting.value = false
+    location.reload()
+  }
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
+
+    submitting.value = false
   }
 }
 </script>
@@ -34,8 +54,12 @@ async function createDraftPost() {
       </p>
     </div>
 
+
     <Card class="p-5 mt-5">
-      <TipTap v-model="postContent" @submit="createDraftPost" />
+      <Input v-model="postTitle" class="text-xl font-bold tracking-tight" placeholder="Title" />
+    </Card>
+    <Card class="p-5 mt-5">
+      <TipTap v-model="postContent" @submit="createDraftPost" :submitting="submitting" />
     </Card>
   </div>
 </template>
