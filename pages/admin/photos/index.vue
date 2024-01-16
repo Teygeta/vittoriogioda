@@ -1,58 +1,61 @@
 <script setup lang="ts">
-import { ExternalLink, MoreVertical, UploadCloud } from 'lucide-vue-next'
+// NOTE: PAGE IN PROGRESS, NOT SURE IF IT WILL BE IMPLEMENTED
 
-import { Input } from '@/components/ui/input'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+// import { ExternalLink, MoreVertical, UploadCloud } from 'lucide-vue-next'
 
-definePageMeta({
-  middleware: ['auth', 'user-role'],
-  layout: 'admin',
-})
+// import { Input } from '@/components/ui/input'
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from '@/components/ui/table'
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu'
 
-const { $trpc } = useNuxtApp()
+// definePageMeta({
+//   middleware: ['auth', 'user-role'],
+//   layout: 'admin',
+// })
 
-const { data, refresh } = await $trpc.admin.photos.paginatePhotosFromVercelStorage.useQuery()
-const blobs = computed(() => data.value?.blobs ?? [])
+// const { $trpc } = useNuxtApp()
 
-const file = ref()
-function onFileChange(event: Event) {
-  const files = (event.target as HTMLInputElement).files
-  if (files && files.length > 0) {
-    file.value = files[0]
-  }
-}
+// const { data, refresh } = await $trpc.admin.photos.paginatePhotosFromVercelStorage.useQuery()
+// const blobs = computed(() => data.value?.blobs ?? [])
 
-async function uploadImage() {
-  try {
-    const { blob } = await $trpc.admin.photos.uploadImageToVercelStorage.query({
-      image: file.value.name,
-    })
+// const file = ref()
+// function onFileChange(event: Event) {
+//   const files = (event.target as HTMLInputElement).files
+//   if (files && files.length > 0) {
+//     file.value = files[0]
+//   }
+// }
 
-    refresh()
-  }
-  catch (error) {
-    //
-  }
-}
+// async function uploadImage() {
+//   try {
+//     const { blob } = await $trpc.admin.photos.uploadImageToVercelStorage.query({
+//       image: file.value.name,
+//     })
+
+//     refresh()
+//   }
+//   catch (error) {
+//     //
+//   }
+// }
 </script>
 
 <template>
   <div>
     <div class="flex flex-col gap-4">
-      <div class="flex justify-between">
+      <p>PAGE IN PROGRESS, NOT SURE IF IT WILL BE IMPLEMENTED</p>
+      <!-- <div class="flex justify-between">
         <div>
           <h2 class="text-2xl font-bold tracking-tight">
             Photos
@@ -144,7 +147,7 @@ async function uploadImage() {
             </TableRow>
           </TableBody>
         </Table>
-      </Card>
+      </Card> -->
     </div>
   </div>
 </template>
