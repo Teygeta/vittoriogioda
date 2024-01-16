@@ -17,7 +17,7 @@ async function handleSignIn() {
 
 <template>
   <div>
-    <div class="mx-auto">
+    <div class="flex justify-center">
       <Button @click="handleSignIn">
         <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8">
         <p class="mr-2">
