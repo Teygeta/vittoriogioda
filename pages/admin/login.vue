@@ -16,12 +16,14 @@ async function handleSignIn() {
 </script>
 
 <template>
-  <div class="mx-auto">
-    <Button @click="handleSignIn">
-      <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8">
-      <p class="mr-2">
-        Accedi
-      </p>
-    </Button>
+  <div>
+    <div class="mx-auto">
+      <Button @click="handleSignIn">
+        <img src="~/assets/img/google-logo.png" alt="Google" class="w-8 h-8">
+        <p class="mr-2">
+          Accedi
+        </p>
+      </Button>
+    </div>
   </div>
 </template>

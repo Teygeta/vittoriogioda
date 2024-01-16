@@ -11,8 +11,9 @@ definePageMeta({
       <h2 class="text-2xl font-bold tracking-tight">
         Home
       </h2>
-      <p class="text-muted-foreground">
-        Manage all platform content
+      <p class="text-xl text-muted-foreground">
+        Here, administrators have complete control over user management, authors can create and publish new posts, and
+        moderators oversee and manage content.
       </p>
     </div>
   </div>
