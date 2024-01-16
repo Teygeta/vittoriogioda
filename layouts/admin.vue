@@ -16,7 +16,7 @@ definePageMeta({
       <div class="flex justify-between">
         <div>
           <h2 class="pb-2 text-3xl font-bold tracking-tight transition-colors scroll-m-20 first:mt-0">
-            Admin
+            Admin section
           </h2>
           <div class="flex gap-2">
             <span class="font-medium text-sm text-neutral-400">{{ user.name }}</span>
@@ -82,13 +82,13 @@ definePageMeta({
                     </Button>
                   </NuxtLink>
 
-                  <NuxtLink custom to="/admin/photos" #="{ isExactActive, href, navigate }">
+                  <!-- <NuxtLink custom to="/admin/photos" #="{ isExactActive, href, navigate }">
                     <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
                       :href="href" @click="navigate">
                       <Camera class="w-4 h-4 mr-2" />
                       Photos
                     </Button>
-                  </NuxtLink>
+                  </NuxtLink> -->
 
                   <NuxtLink custom to="/admin/users" #="{ isExactActive, href, navigate }">
                     <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
@@ -98,7 +98,7 @@ definePageMeta({
                     </Button>
                   </NuxtLink>
 
-                  <div class="border-t" />
+                  <!-- <div class="border-t" />
 
                   <NuxtLink custom to="/admin/settings" #="{ isExactActive, href, navigate }">
                     <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
@@ -106,7 +106,7 @@ definePageMeta({
                       <Settings class="w-4 h-4 mr-2" />
                       Settings
                     </Button>
-                  </NuxtLink>
+                  </NuxtLink> -->
                 </div>
               </div>
             </div>
