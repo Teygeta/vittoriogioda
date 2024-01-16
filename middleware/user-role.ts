@@ -15,7 +15,11 @@ export default defineNuxtRouteMiddleware((to) => {
             if (to.path !== '/blog/index') {
                 return navigateTo('/admin')
             }
-        } else if (!userRole) {
+        } else if (userRole === 'USER') {
+            // HACK: User role has no rules yet
+            return navigateTo('/admin')
+        }
+        else if (!userRole) {
             return navigateTo('/admin')
         }
     }
