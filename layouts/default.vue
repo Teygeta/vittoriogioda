@@ -31,7 +31,9 @@ const navigationItems = computed(() => {
                 <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
                   :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
                   <Home :size="20" :stroke-width="2.2" />
-                  Home
+                  <span class="hidden sm:inline-block">
+                    Home
+                  </span>
                 </Button>
               </NuxtLink>
             </li>
@@ -40,7 +42,9 @@ const navigationItems = computed(() => {
                 <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
                   :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
                   <Wrench :size="20" :stroke-width="2.2" />
-                  Tools
+                  <span class="hidden sm:inline-block">
+                    Tools
+                  </span>
                 </Button>
               </NuxtLink>
             </li>
@@ -49,11 +53,13 @@ const navigationItems = computed(() => {
                 <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
                   :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
                   <BookOpen :size="20" :stroke-width="2.2" />
-                  Blog
+                  <span class="hidden sm:inline-block">
+                    Blog
+                  </span>
                 </Button>
               </NuxtLink>
             </li>
-            <li>
+            <!-- <li>
               <NuxtLink v-slot="{ href, navigate, isExactActive }" custom to="/photos">
                 <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
                   :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
@@ -61,7 +67,7 @@ const navigationItems = computed(() => {
                   Photos
                 </Button>
               </NuxtLink>
-            </li>
+            </li> -->
           </ul>
         </div>
 
