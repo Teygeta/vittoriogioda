@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { UserRole } from '@prisma/client'
+import { useToast } from '~/components/ui/toast'
+
+import { Loader2, UserRound } from 'lucide-vue-next'
+
 import { format } from 'date-fns'
-import { useToast } from '@/components/ui/toast/use-toast'
-import { Loader2, ChevronDown, UserRound } from 'lucide-vue-next'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
@@ -20,7 +22,6 @@ const { data, refresh } = await $trpc.admin.users.getUserById.useQuery({
 const user = computed(() => data.value?.user || null)
 
 const userRoles: UserRole[] = ['ADMIN', 'USER', 'AUTHOR', 'MODERATOR']
-const editRoleIsOpen = ref(false)
 
 const submitting = ref(false)
 
@@ -123,6 +124,30 @@ async function unbanUser() {
   }
 }
 
+const selectedRole = ref<UserRole>()
+async function changeUserRole() {
+  submitting.value = true
+
+  try {
+    await $trpc.admin.users.changeUserRole.mutate({
+      userId: userId.value,
+      role: selectedRole.value,
+    })
+
+    selectedRole.value = undefined
+    await refresh()
+  }
+  catch (e: any) {
+    toast({
+      title: 'Error',
+      description: e.message,
+    })
+  }
+  finally {
+    submitting.value = false
+    selectedRole.value = undefined
+  }
+}
 </script>
 
 <template>
@@ -225,57 +250,61 @@ async function unbanUser() {
             </p>
           </div>
 
-          <Collapsible v-model:open="editRoleIsOpen">
-            <CollapsibleTrigger>
-              <Button>
-                <ChevronDown class="w-4 h-4" />
-                Edit
+          <div class="flex gap-2">
+            <Select v-model="selectedRole">
+              <SelectTrigger class="w-[180px]">
+                <SelectValue placeholder="Select a role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
+                    <span v-if="role === 'ADMIN'"
+                      class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                      {{ role }}
+                    </span>
+                    <span v-else-if="role === 'USER'"
+                      class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                      {{ role }}
+                    </span>
+                    <span v-else-if="role === 'AUTHOR'"
+                      class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
+                      {{ role }}
+                    </span>
+                    <span v-else-if="role === 'MODERATOR'"
+                      class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                      {{ role }}
+                    </span>
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <Button @click="changeUserRole" :disabled="!selectedRole">
+              <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />
+              Confirm
+            </Button>
+          </div>
+
+          <AlertDialog>
+            <AlertDialogTrigger as-child>
+              <Button class="text-red-500" variant="link">
+                Remove
               </Button>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <form class="flex gap-2" @submit="onSubmit">
-                <FormField v-slot="{ componentField }" name="email">
-                  <FormItem>
-                    <Select class="focus" v-bind="componentField">
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Change role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
-                            <span v-if="role === 'ADMIN'"
-                              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
-                              {{ role }}
-                            </span>
-                            <span v-else-if="role === 'USER'"
-                              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                              {{ role }}
-                            </span>
-                            <span v-else-if="role === 'AUTHOR'"
-                              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
-                              {{ role }}
-                            </span>
-                            <span v-else-if="role === 'MODERATOR'"
-                              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
-                              {{ role }}
-                            </span>
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                </FormField>
-
-                <Button type="submit">
-                  Submit
-                </Button>
-              </form>
-            </CollapsibleContent>
-          </Collapsible>
-
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your
+                  account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </Card>
 
         <Card v-if="!user.banned" class="flex items-start p-8">

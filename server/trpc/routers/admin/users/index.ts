@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { publicProcedure, router } from '../../../trpc'
-
+import { UserRole } from '@prisma/client'
 import { prisma } from '~/server/services/prisma'
 
 export const usersRouter = router({
@@ -16,7 +16,7 @@ export const usersRouter = router({
   getUserById: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        userId: z.string().cuid(),
       }),
     )
     .query(async ({ input }) => {
@@ -52,7 +52,7 @@ export const usersRouter = router({
   deleteUser: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        userId: z.string().cuid(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -70,7 +70,7 @@ export const usersRouter = router({
   banUser: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        userId: z.string().cuid(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -91,7 +91,7 @@ export const usersRouter = router({
   unbanUser: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        userId: z.string().cuid(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -109,5 +109,25 @@ export const usersRouter = router({
       }
     }),
 
+  changeUserRole: publicProcedure
+    .input(
+      z.object({
+        userId: z.string().cuid(),
+        role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]).nullish(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.update({
+        where: {
+          id: input.userId,
+        },
+        data: {
+          role: input.role
+        }
+      })
 
+      return {
+        user,
+      }
+    }),
 })
