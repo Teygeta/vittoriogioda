@@ -24,25 +24,40 @@ export default NuxtAuthHandler({
       if (session?.user) {
         session.user.id = user.id
 
-
         const userData = await prisma.user.findUnique({
           where: {
             id: session.user.id,
           },
           select: {
+            email: true,
             banned: true,
             role: true,
           }
         })
 
         if (userData!.banned) {
-          throw new Error('Banned');
+          throw new Error('Banned')
         }
 
-        session.user.role = userData!.role
+        const adminEmail = process.env.DEFAULT_ADMIN_EMAIL
+        if (userData!.email === adminEmail) {
+          await prisma.user.update({
+            where: {
+              email: adminEmail,
+            },
+            data: {
+              role: 'ADMIN',
+            },
+          })
+
+          session.user.role = 'ADMIN'
+        } else {
+          session.user.role = userData!.role
+        }
       }
       return session
     },
+
   },
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point

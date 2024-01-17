@@ -16,8 +16,10 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-    <Toaster />
-  </NuxtLayout>
+  <div>
+    <NuxtLayout>
+      <NuxtPage />
+      <Toaster />
+    </NuxtLayout>
+  </div>
 </template>
