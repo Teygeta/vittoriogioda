@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookOpen, CircleUser, Home, Power, Settings } from 'lucide-vue-next'
+import { BookOpen, CircleUser, Home, Power } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 
 const { signOut } = useAuth()
@@ -48,16 +48,20 @@ definePageMeta({
               <div class="flex-grow space-y-4">
                 <div class="space-y-1">
                   <NuxtLink custom to="/admin" #="{ isExactActive, href, navigate }">
-                    <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
-                      :href="href" @click="navigate">
+                    <Button
+                      as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
+                      :href="href" @click="navigate"
+                    >
                       <Home class="w-4 h-4 mr-2" />
                       Home
                     </Button>
                   </NuxtLink>
 
                   <NuxtLink custom to="/admin/blog" #="{ isExactActive, href, navigate }">
-                    <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
-                      :href="href" @click="navigate">
+                    <Button
+                      as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
+                      :href="href" @click="navigate"
+                    >
                       <BookOpen class="w-4 h-4 mr-2" />
                       Blog
                     </Button>
@@ -72,8 +76,10 @@ definePageMeta({
                   </NuxtLink> -->
 
                   <NuxtLink custom to="/admin/users" #="{ isExactActive, href, navigate }">
-                    <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
-                      :href="href" @click="navigate">
+                    <Button
+                      as="a" :variant="isExactActive ? 'secondary' : 'ghost'" class="justify-start w-full"
+                      :href="href" @click="navigate"
+                    >
                       <CircleUser class="w-4 h-4 mr-2" />
                       Users
                     </Button>
@@ -82,8 +88,10 @@ definePageMeta({
                   <div class="border-t" />
 
                   <NuxtLink custom to="/admin/settings" #="{ isExactActive, href, navigate }">
-                    <Button as="a" :variant="isExactActive ? 'secondary' : 'ghost'"
-                      class="justify-start w-full flex gap-2" :href="href" @click="navigate">
+                    <Button
+                      as="a" :variant="isExactActive ? 'secondary' : 'ghost'"
+                      class="justify-start w-full flex gap-2" :href="href" @click="navigate"
+                    >
                       <Avatar class="w-7 h-7">
                         <AvatarImage :src="user.image || ''" alt="U" />
                         <AvatarFallback>Avatar</AvatarFallback>
@@ -92,20 +100,28 @@ definePageMeta({
                         {{ user.name }}
                       </p>
                       <div>
-                        <span v-if="user.role === 'ADMIN'"
-                          class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                        <span
+                          v-if="user.role === 'ADMIN'"
+                          class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
+                        >
                           {{ user.role }}
                         </span>
-                        <span v-else-if="user.role === 'USER'"
-                          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                        <span
+                          v-else-if="user.role === 'USER'"
+                          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+                        >
                           {{ user.role }}
                         </span>
-                        <span v-else-if="user.role === 'AUTHOR'"
-                          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
+                        <span
+                          v-else-if="user.role === 'AUTHOR'"
+                          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300"
+                        >
                           {{ user.role }}
                         </span>
-                        <span v-else-if="user.role === 'MODERATOR'"
-                          class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                        <span
+                          v-else-if="user.role === 'MODERATOR'"
+                          class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+                        >
                           {{ user.role }}
                         </span>
                         <span v-else />

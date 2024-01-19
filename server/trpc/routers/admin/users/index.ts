@@ -129,4 +129,26 @@ export const usersRouter = router({
         user,
       }
     }),
+
+  changUserDetails: publicProcedure
+    .input(
+      z.object({
+        userId: z.string().cuid(),
+        name: z.string().min(2).max(50),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.update({
+        where: {
+          id: input.userId,
+        },
+        data: {
+          name: input.name,
+        },
+      })
+
+      return {
+        user,
+      }
+    }),
 })
