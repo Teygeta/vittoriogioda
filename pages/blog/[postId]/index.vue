@@ -18,5 +18,19 @@ const post = computed(() => data.value?.post)
       </h1>
       <div class="post-container" v-html="post.content" />
     </div>
+    <div v-else>
+      <main class="grid min-h-full px-6 py-24 place-items-center sm:py-32 lg:px-8">
+        <div class="text-center">
+          <h1 class="my-4 text-3xl font-bold tracking-tight sm:text-5xl">
+            Page not found
+          </h1>
+          <div class="flex items-center justify-center mt-10 gap-x-6">
+            <Button as="a" href="/">
+              Go back home
+            </Button>
+          </div>
+        </div>
+      </main>
+    </div>
   </div>
 </template>
