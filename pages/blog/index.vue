@@ -26,14 +26,12 @@ const filteredPosts = computed(() => {
         <Input v-model.trim="query" type="text" placeholder="Cerca un post..." />
       </div>
 
-      <nuxt-link
-        v-for="post in filteredPosts" v-if="filteredPosts.length > 0" :key="post.id"
+      <nuxt-link v-for="post in filteredPosts" v-if="filteredPosts.length > 0" :key="post.id"
         class="px-6 py-3 transition rounded-md dark:hover:bg-opacity-10 dark:bg-white dark:bg-opacity-5"
-        :to="`/blog/${post.id}`"
-      >
+        :to="`/blog/${post.id}`">
         <div>
-          <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-semibold">
+          <div class="sm:flex justify-between items-center gap-2">
+            <h1 class="text-3xl font-bold mb-2">
               {{ post.title }}
             </h1>
             <div class="font-mono text-gray-500">
