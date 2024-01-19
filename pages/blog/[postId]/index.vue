@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import { it } from 'date-fns/locale'
+import { format } from 'date-fns'
+
+definePageMeta({
+  layout: 'post',
+})
+
 const route = useRoute()
 const postId = computed(() => route.params.postId as string)
 const { $trpc } = useNuxtApp()
@@ -13,9 +20,15 @@ const post = computed(() => data.value?.post)
 <template>
   <div>
     <div v-if="post" class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-semibold">
-        {{ post.title }}
-      </h1>
+      <div class="my-8">
+        <h1 class="mb-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          {{ post.title }}
+        </h1>
+        <div class="font-mono text-gray-500">
+          {{ format(post.createdAt, 'PPPP', { locale: it }).replace(/^\w/, (c) => c.toUpperCase()) }}
+        </div>
+      </div>
+
       <div class="post-container" v-html="post.content" />
     </div>
     <div v-else>
