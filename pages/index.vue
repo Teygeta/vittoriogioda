@@ -18,11 +18,17 @@
           </div>
         </div>
         <div class="mt-3 mb-8 ml-1 font-mono italic text-gray-500">
-          Web Developer
+          Developer
         </div>
         <p>
-          He/Him. Web developer, UI/UX design engineer, and a professional procrastinator. College student, but I learn
-          more from YouTube. If you need something done tomorrow, hit me up today. #LazyGenius
+          Web developer. UX/UI designer. Mi piace creare app utili e belle da vedere.. Non sono sicuro di ciò che ho
+          scritto, ma suona bene.
+          Ogni tanto faccio qualche sito per le attività commerciali locali e sono un appassionato di procastinazione e
+          tecnologia.
+        </p>
+        <p class="italic text-sm text-muted-foreground">
+          Sei fortunato ad avermi trovato, <a class="underline" href="mailto:giodavittorio@gmail.com">contattami</a> se
+          vuoi un sito o vuoi collaborare.
         </p>
       </div>
     </div>

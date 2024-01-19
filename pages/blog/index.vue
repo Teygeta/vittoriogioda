@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { format } from 'date-fns'
+
 const { $trpc } = useNuxtApp()
 const query = ref('')
 
@@ -8,7 +10,6 @@ const posts = computed(() => data.value?.posts ?? [])
 
 const filteredPosts = computed(() => {
   if (!query.value) return posts.value
-  // filter posts by title and content
   return posts.value.filter((post) => {
     const title = post.title.toLowerCase()
     const content = post.content?.toLowerCase()
@@ -29,10 +30,18 @@ const filteredPosts = computed(() => {
         class="px-6 py-3 transition rounded-md dark:hover:bg-opacity-10 dark:bg-white dark:bg-opacity-5"
         :to="`/blog/${post.id}`">
         <div>
-          <h1 class="text-2xl font-semibold">
-            {{ post.title }}
-          </h1>
-          <div class="post-container" v-html="post.content" />
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-semibold">
+              {{ post.title }}
+            </h1>
+            <div class="font-mono text-gray-500">
+              {{ format(post.createdAt, 'P') }}
+            </div>
+          </div>
+
+          <div class="max-h-[150px] overflow-hidden">
+            <div class="post-container" v-html="post.content" />
+          </div>
         </div>
       </nuxt-link>
 

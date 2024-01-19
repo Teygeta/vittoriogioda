@@ -10,13 +10,6 @@ async function sendEmail() {
   catch (error) {
   }
 }
-
-const navigationItems = computed(() => {
-  return [
-    { name: 'Home', href: '/' },
-    { name: 'Tools', href: '/tools' },
-  ]
-})
 </script>
 
 <template>
@@ -33,17 +26,6 @@ const navigationItems = computed(() => {
                   <Home :size="20" :stroke-width="2.2" />
                   <span class="hidden sm:inline-block">
                     Home
-                  </span>
-                </Button>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink v-slot="{ href, navigate, isExactActive }" custom to="/tools">
-                <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
-                  :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
-                  <Wrench :size="20" :stroke-width="2.2" />
-                  <span class="hidden sm:inline-block">
-                    Tools
                   </span>
                 </Button>
               </NuxtLink>
