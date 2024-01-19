@@ -54,12 +54,11 @@ async function createDraftPost() {
       </p>
     </div>
 
-
     <Card class="p-5 mt-5">
       <Input v-model="postTitle" class="text-xl font-bold tracking-tight" placeholder="Title" />
     </Card>
     <Card class="p-5 mt-5">
-      <TipTap v-model="postContent" @submit="createDraftPost" :submitting="submitting" />
+      <TipTap v-model="postContent" :submitting="submitting" @submit="createDraftPost" />
     </Card>
   </div>
 </template>

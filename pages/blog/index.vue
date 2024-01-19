@@ -9,7 +9,7 @@ const { data } = await $trpc.user.blog.paginatePosts.useQuery()
 const posts = computed(() => data.value?.posts ?? [])
 
 const filteredPosts = computed(() => {
-  if (!query.value) return posts.value
+  if (!query.value) { return posts.value }
   return posts.value.filter((post) => {
     const title = post.title.toLowerCase()
     const content = post.content?.toLowerCase()
@@ -23,12 +23,14 @@ const filteredPosts = computed(() => {
   <main>
     <div class="flex flex-col max-w-3xl gap-5 mx-auto">
       <div>
-        <Input type="text" v-model.trim="query" placeholder="Cerca un post..." />
+        <Input v-model.trim="query" type="text" placeholder="Cerca un post..." />
       </div>
 
-      <nuxt-link v-if="filteredPosts.length > 0" v-for="post in filteredPosts" :key="post.id"
+      <nuxt-link
+        v-for="post in filteredPosts" v-if="filteredPosts.length > 0" :key="post.id"
         class="px-6 py-3 transition rounded-md dark:hover:bg-opacity-10 dark:bg-white dark:bg-opacity-5"
-        :to="`/blog/${post.id}`">
+        :to="`/blog/${post.id}`"
+      >
         <div>
           <div class="flex justify-between items-center">
             <h1 class="text-2xl font-semibold">
@@ -50,7 +52,6 @@ const filteredPosts = computed(() => {
           Nessun post trovato
         </p>
       </div>
-
     </div>
   </main>
 </template>

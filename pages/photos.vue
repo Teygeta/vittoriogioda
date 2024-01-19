@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
@@ -13,4 +12,3 @@ router.push('/')
     </div>
   </main>
 </template>
-

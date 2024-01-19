@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { publicProcedure, router } from '../../../trpc'
 import { UserRole } from '@prisma/client'
+import { publicProcedure, router } from '../../../trpc'
 import { prisma } from '~/server/services/prisma'
 
 export const usersRouter = router({
@@ -61,11 +61,10 @@ export const usersRouter = router({
           id: input.userId,
         },
         data: {
-          deletedAt: new Date()
-        }
+          deletedAt: new Date(),
+        },
       })
     }),
-
 
   banUser: publicProcedure
     .input(
@@ -79,8 +78,8 @@ export const usersRouter = router({
           id: input.userId,
         },
         data: {
-          banned: true
-        }
+          banned: true,
+        },
       })
 
       return {
@@ -100,8 +99,8 @@ export const usersRouter = router({
           id: input.userId,
         },
         data: {
-          banned: false
-        }
+          banned: false,
+        },
       })
 
       return {
@@ -122,8 +121,8 @@ export const usersRouter = router({
           id: input.userId,
         },
         data: {
-          role: input.role
-        }
+          role: input.role,
+        },
       })
 
       return {

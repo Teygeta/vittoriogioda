@@ -32,7 +32,7 @@ export default NuxtAuthHandler({
             email: true,
             banned: true,
             role: true,
-          }
+          },
         })
 
         if (userData!.banned) {
@@ -51,7 +51,8 @@ export default NuxtAuthHandler({
           })
 
           session.user.role = 'ADMIN'
-        } else {
+        }
+        else {
           session.user.role = userData!.role
         }
       }
