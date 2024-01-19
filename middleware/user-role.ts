@@ -9,10 +9,6 @@ export default defineNuxtRouteMiddleware((to) => {
 
     }
 
-    else if (to.path === '/admin/settings') {
-
-    }
-
     else if (!userRole) {
       return navigateTo('/admin')
     }
