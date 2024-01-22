@@ -27,7 +27,7 @@
           tecnologia.
         </p>
         <p class="italic text-sm text-muted-foreground">
-          Sei fortunato ad avermi trovato, <a class="underline" href="mailto:giodavittorio@gmail.com">contattami</a> se
+          <a class="underline" href="mailto:giodavittorio@gmail.com">Contattami</a> se
           vuoi un sito o vuoi collaborare.
         </p>
       </div>
