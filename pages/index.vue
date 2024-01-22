@@ -26,10 +26,6 @@
           Ogni tanto faccio qualche sito per le attività commerciali locali e sono un appassionato di procastinazione e
           tecnologia.
         </p>
-        <p class="italic text-sm text-muted-foreground">
-          <a class="underline" href="mailto:giodavittorio@gmail.com">Contattami</a> se
-          vuoi un sito o vuoi collaborare.
-        </p>
       </div>
     </div>
   </div>

@@ -1,13 +1,30 @@
 <script setup lang="ts">
 import { BookOpen, Github, Home, Mail } from 'lucide-vue-next'
+import { useToast } from '~/components/ui/toast'
+
+const { toast } = useToast()
 
 const { $trpc } = useNuxtApp()
 
+const resendEmail = ref('')
 async function sendEmail() {
   try {
-    const data = await $trpc.user.resend.sendEmail.query()
+    // await $trpc.user.resend.sendEmail.query({
+    //   email: resendEmail.value
+    // })
+
+    toast({
+      title: 'Email inviata',
+      description: 'Grazie per avermi contattato, ti risponderò al più presto!',
+    })
+
+    resendEmail.value = ''
   }
-  catch (error) {
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
   }
 }
 </script>
@@ -16,16 +33,13 @@ async function sendEmail() {
   <div>
     <main class="flex flex-col justify-between min-h-screen">
       <nav
-        class="sticky top-0 z-50 flex items-center justify-between w-full max-w-6xl p-5 mx-auto backdrop-blur-md bg-opacity-40"
-      >
+        class="sticky top-0 z-50 flex items-center justify-between w-full max-w-6xl p-5 mx-auto backdrop-blur-md bg-opacity-40">
         <div>
           <ul class="flex items-center gap-8">
             <li>
               <NuxtLink v-slot="{ href, navigate, isExactActive }" custom to="/">
-                <Button
-                  class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
-                  :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate"
-                >
+                <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
+                  :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
                   <Home :size="20" :stroke-width="2.2" />
                   <span class="hidden sm:inline-block">
                     Home
@@ -35,10 +49,8 @@ async function sendEmail() {
             </li>
             <li>
               <NuxtLink v-slot="{ href, navigate, isExactActive }" custom to="/blog">
-                <Button
-                  class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
-                  :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate"
-                >
+                <Button class="!flex !gap-2 !items-center" variant="ghost" v-bind="$attrs" :href="href"
+                  :class="{ 'bg-neutral-800/70': isExactActive }" @click="navigate">
                   <BookOpen :size="20" :stroke-width="2.2" />
                   <span class="hidden sm:inline-block">
                     Blog
@@ -69,9 +81,28 @@ async function sendEmail() {
 
       <footer class="flex justify-center py-5 z-10">
         <div>
-          <Button variant="ghost" class="w-fit mx-auto mt-10" @click="sendEmail">
-            <Mail :size="20" />
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button variant="ghost" class="w-fit mx-auto mt-10">
+                <Mail :size="20" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Contatto</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Scrivi la mail alla quale vuoi essere ricontattato:
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <div>
+                <Input v-model="resendEmail" type="email" placeholder="Email" />
+              </div>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annulla</AlertDialogCancel>
+                <AlertDialogAction @click="sendEmail">Conferma</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button variant="ghost" class="w-fit mx-auto mt-10" as-child @click="() => console.log('ok')">
             <a href="https://www.github.com/Teygeta" target="_blank">
               <Github :size="20" />
