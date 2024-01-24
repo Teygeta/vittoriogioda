@@ -333,7 +333,7 @@ async function removeUserRole() {
               Ban user
             </h3>
             <p class="text-sm text-muted-foreground">
-              This action makes a user unable to sign in and clears all their active sessions
+              This action makes a user unable to sign
             </p>
           </div>
           <div>
