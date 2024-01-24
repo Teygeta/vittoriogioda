@@ -9,6 +9,7 @@ export const resendRouter = router({
     .input(
       z.object({
         email: z.string(),
+        description: z.string().optional(),
       })
     )
     .query(async ({ input }) => {
@@ -16,7 +17,7 @@ export const resendRouter = router({
         from: 'Acme <onboarding@resend.dev>',
         to: ['giodavittorio@gmail.com'],
         subject: 'New lead via Resend',
-        html: `Contact: <strong>${input.email}</strong>`,
+        html: `Contact: <strong>${input.email}</strong> <br /> Description: <strong>${input.description ? input.description : '-'}</strong>`,
       })
 
       return {
