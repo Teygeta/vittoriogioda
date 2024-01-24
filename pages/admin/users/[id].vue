@@ -148,6 +148,27 @@ async function changeUserRole() {
     selectedRole.value = undefined
   }
 }
+
+async function removeUserRole() {
+  submitting.value = true
+
+  try {
+    await $trpc.admin.users.removeUserRole.mutate({
+      userId: userId.value,
+    })
+
+    await refresh()
+  }
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
+  }
+  finally {
+    submitting.value = false
+  }
+}
 </script>
 
 <template>
@@ -228,28 +249,20 @@ async function changeUserRole() {
               User role:
             </h3>
             <p class="text-sm text-muted-foreground">
-              <span
-                v-if="user.role === 'ADMIN'"
-                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
-              >
+              <span v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'USER'"
-                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
+              <span v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'AUTHOR'"
-                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300"
-              >
+              <span v-else-if="user.role === 'AUTHOR'"
+                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'MODERATOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >
+              <span v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {{ user.role }}
               </span>
               <span v-else>
@@ -266,28 +279,20 @@ async function changeUserRole() {
               <SelectContent>
                 <SelectGroup>
                   <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
-                    <span
-                      v-if="role === 'ADMIN'"
-                      class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
-                    >
+                    <span v-if="role === 'ADMIN'"
+                      class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                       {{ role }}
                     </span>
-                    <span
-                      v-else-if="role === 'USER'"
-                      class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-                    >
+                    <span v-else-if="role === 'USER'"
+                      class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                       {{ role }}
                     </span>
-                    <span
-                      v-else-if="role === 'AUTHOR'"
-                      class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300"
-                    >
+                    <span v-else-if="role === 'AUTHOR'"
+                      class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-700 dark:text-green-300">
                       {{ role }}
                     </span>
-                    <span
-                      v-else-if="role === 'MODERATOR'"
-                      class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-                    >
+                    <span v-else-if="role === 'MODERATOR'"
+                      class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                       {{ role }}
                     </span>
                   </SelectItem>
@@ -316,7 +321,7 @@ async function changeUserRole() {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
+                <AlertDialogAction @click="removeUserRole">Continue</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
