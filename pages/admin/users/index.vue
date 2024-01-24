@@ -4,33 +4,42 @@ import { Plus, User } from 'lucide-vue-next'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
+import { useToast } from '~/components/ui/toast'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
   layout: 'admin',
 })
 
+const { toast } = useToast()
+
 const { $trpc } = useNuxtApp()
 const { data, refresh } = await $trpc.admin.users.paginateUsers.useQuery()
 
 const users = computed(() => data.value?.users ?? [])
 
-const formSchema = toTypedSchema(z.object({
-  email: z.string().email(),
-}))
+const formSchema = toTypedSchema(
+  z.object({
+    email: z.string().email(),
+  })
+)
 
 const { handleSubmit } = useForm({
   validationSchema: formSchema,
 })
 
+
 const createUser = handleSubmit(async (values) => {
   try {
     const data = await $trpc.admin.users.createUser.query(values)
 
-    refresh()
+    navigateTo(`/admin/users/${data.user.id}`)
   }
-  catch (error) {
-    // TODO: handle error
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
   }
 })
 </script>
@@ -58,9 +67,9 @@ const createUser = handleSubmit(async (values) => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>New user details</DialogTitle>
+            <DialogTitle>Create</DialogTitle>
             <DialogDescription>
-              Dialog description for create user
+              Enter the email of the user you want to create
             </DialogDescription>
           </DialogHeader>
 
@@ -69,7 +78,7 @@ const createUser = handleSubmit(async (values) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="example@text.com" v-bind="componentField" />
+                  <Input type="email" placeholder="example@text.com" v-bind="componentField" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,28 +128,24 @@ const createUser = handleSubmit(async (values) => {
               {{ user.email }}
             </TableCell>
             <TableCell>
-              <span
-                v-if="user.role === 'ADMIN'"
-                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
-              >
+              <span v-if="user.role === 'ADMIN'"
+                class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'USER'"
-                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >
+              <span v-else-if="user.role === 'PENDING'"
+                class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'AUTHOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >
+              <span v-else-if="user.role === 'USER'"
+                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                 {{ user.role }}
               </span>
-              <span
-                v-else-if="user.role === 'MODERATOR'"
-                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >
+              <span v-else-if="user.role === 'AUTHOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'MODERATOR'"
+                class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                 {{ user.role }}
               </span>
               <span v-else />
