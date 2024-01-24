@@ -20,7 +20,7 @@ export const resendRouter = router({
         from: 'Acme <onboarding@resend.dev>',
         to: ['giodavittorio@gmail.com'],
         subject: 'Admin request via Resend',
-        html: `<strong>${input.email}</strong> (${input.id}) has requested ${input.role} access.`,
+        html: `<strong>${input.email}</strong> (${input.userId}) has requested ${input.role} access.`,
       })
 
       await prisma.user.update({
