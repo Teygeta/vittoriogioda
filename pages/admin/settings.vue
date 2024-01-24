@@ -4,6 +4,8 @@ import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { format } from 'date-fns'
 import { useToast } from '~/components/ui/toast'
+import { Loader2 } from 'lucide-vue-next'
+
 
 definePageMeta({
   middleware: ['auth'],
@@ -147,17 +149,32 @@ const onSubmit = handleSubmit(async (values) => {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text" :default-value="user.name || undefined" placeholder="User name"
-                          v-bind="componentField"
-                        />
+                        <Input type="text" :default-value="user.name || undefined" placeholder="User name"
+                          v-bind="componentField" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   </FormField>
-                  <Button type="submit">
-                    Submit
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger as-child>
+                      <Button>
+                        <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />
+                        Confirm
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          You are about to change the username. This action is permanent and cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction type="submit" @click="onSubmit">Continue</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </Form>
               </li>
             </ul>
