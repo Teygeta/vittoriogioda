@@ -19,7 +19,7 @@ const post = computed(() => data.value?.post)
 
 <template>
   <div>
-    <div v-if="post" class="max-w-4xl mx-auto">
+    <div v-if="post && post.published" class="max-w-4xl mx-auto">
       <div class="my-8">
         <h1 class="mb-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {{ post.title }}
