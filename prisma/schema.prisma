@@ -15,15 +15,30 @@ model Post {
   content String? @db.Text
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
 
   published Boolean @default(false)
 
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id])
+  authorId       String
+  postCategoryId String?
+
+  author   User          @relation(fields: [authorId], references: [id])
+  category PostCategory? @relation(fields: [postCategoryId], references: [id])
 
   @@index([authorId])
+  @@index([postCategoryId])
+}
+
+model PostCategory {
+  id String @id @default(uuid())
+
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Post Post[]
 }
 
 model Account {
@@ -58,7 +73,7 @@ model Session {
   expires DateTime
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -68,6 +83,9 @@ enum UserRole {
   USER
   AUTHOR
   MODERATOR
+
+  // when a user ask for a role, it will be set to PENDING
+  PENDING
 }
 
 model User {
@@ -85,7 +103,7 @@ model User {
 
   createdAt DateTime  @default(now())
   deletedAt DateTime?
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime  @default(now()) @updatedAt
 
   accounts Account[]
   posts    Post[]
