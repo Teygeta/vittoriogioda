@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { UserRole } from '@prisma/client'
-
-import { Loader2, UserRound } from 'lucide-vue-next'
-
 import { format } from 'date-fns'
 import { useToast } from '~/components/ui/toast'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
+
+import { Loader2, UserRound } from 'lucide-vue-next'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
@@ -169,6 +171,47 @@ async function removeUserRole() {
     submitting.value = false
   }
 }
+
+
+const formSchema = toTypedSchema(
+  z.object({
+    name: z.string().min(2).max(50),
+  }),
+)
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const changeUserName = handleSubmit(async (values) => {
+  if (submitting.value) {
+    return
+  }
+
+  submitting.value = true
+
+  try {
+    await $trpc.admin.users.changUserDetails.mutate({
+      userId: userId.value,
+      name: values.name,
+    })
+
+    await refresh()
+
+    toast({
+      title: 'Name changed successfully!',
+    })
+  }
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
+  }
+  finally {
+    submitting.value = false
+  }
+})
 </script>
 
 <template>
@@ -245,11 +288,68 @@ async function removeUserRole() {
 
         <Card class="flex items-start p-8">
           <div class="flex-1">
+            <h3 class="text-lg font-semibold flex gap-2 items-center">
+              Edit
+              <Badge v-if="user?.banned" variant="destructive">
+                Banned
+              </Badge>
+            </h3>
+            <p class="text-sm text-muted-foreground">
+              Edit personal details
+            </p>
+          </div>
+          <div class="flex-1">
+            <ul class="space-y-5">
+              <li class="flex justify-between">
+                <form class="w-2/3 space-y-6" @submit="changeUserName">
+                  <FormField v-slot="{ componentField }" name="name">
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input type="text" :default-value="user.name || undefined" placeholder="User name"
+                          v-bind="componentField" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
+                  <AlertDialog>
+                    <AlertDialogTrigger as-child>
+                      <Button>
+                        Confirm
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          You are about to change the username. This action is permanent and cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction @click="changeUserName">
+                          <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </Form>
+              </li>
+            </ul>
+          </div>
+        </Card>
+
+        <Card class="flex items-start p-8">
+          <div class="flex-1">
             <h3 class="text-lg font-semibold">
               User role:
             </h3>
             <p class="text-sm text-muted-foreground">
-              <span v-if="user.role === 'ADMIN'"
+              <span v-if="user.role === 'PENDING'"
+                class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                {{ user.role }}
+              </span>
+              <span v-else-if="user.role === 'ADMIN'"
                 class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                 {{ user.role }}
               </span>
@@ -279,7 +379,11 @@ async function removeUserRole() {
               <SelectContent>
                 <SelectGroup>
                   <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
-                    <span v-if="role === 'ADMIN'"
+                    <span v-if="user.role === 'PENDING'"
+                      class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                      {{ user.role }}
+                    </span>
+                    <span v-else-if="role === 'ADMIN'"
                       class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                       {{ role }}
                     </span>
