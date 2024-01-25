@@ -64,6 +64,28 @@ export const blogRouter = router({
       }
     }),
 
+  updatePost: publicProcedure
+    .input(
+      z.object({
+        postId: z.string(),
+        content: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const post = await prisma.post.update({
+        where: {
+          id: input.postId,
+        },
+        data: {
+          content: input.content,
+        },
+      })
+
+      return {
+        post,
+      }
+    }),
+
   getPostById: publicProcedure
     .input(z.object({
       postId: z.string(),

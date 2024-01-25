@@ -14,6 +14,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  content: {
+    type: String,
+    default: null,
+  },
 })
 
 const emit = defineEmits<Emits>()
@@ -23,7 +27,7 @@ interface Emits {
 }
 
 const editor = useEditor({
-  content: props.modelValue,
+  content: props.content || props.modelValue,
   onUpdate: ({ editor }) => {
     const html = editor.getHTML().replaceAll('<p></p>', '<p><br></p>')
     emit('update:modelValue', html)
@@ -49,86 +53,60 @@ const editor = useEditor({
 <template>
   <div>
     <div v-if="editor" class="flex gap-1 p-2 my-2 border rounded">
-      <button
-        :disabled="!editor.can().chain().focus().toggleBold().run()"
-        :class="{ 'is-active text-white': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()"
-      >
+      <button :disabled="!editor.can().chain().focus().toggleBold().run()"
+        :class="{ 'is-active text-white': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">
         <Bold :size="25" />
       </button>
-      <button
-        :disabled="!editor.can().chain().focus().toggleItalic().run()"
+      <button :disabled="!editor.can().chain().focus().toggleItalic().run()"
         :class="{ 'is-active text-white': editor.isActive('italic') }"
-        @click="editor.chain().focus().toggleItalic().run()"
-      >
+        @click="editor.chain().focus().toggleItalic().run()">
         <Italic :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('underline') }"
-        @click="editor.chain().focus().toggleUnderline().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('underline') }"
+        @click="editor.chain().focus().toggleUnderline().run()">
         <UnderlineIcon :size="25" />
       </button>
-      <button
-        :disabled="!editor.can().chain().focus().toggleCode().run()"
-        :class="{ 'is-active text-white': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()"
-      >
+      <button :disabled="!editor.can().chain().focus().toggleCode().run()"
+        :class="{ 'is-active text-white': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
         <Code :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('paragraph') }"
-        @click="editor.chain().focus().setParagraph().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('paragraph') }"
+        @click="editor.chain().focus().setParagraph().run()">
         <div class="text-xl">
           P
         </div>
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('heading', { level: 3 }) }"
-        @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('heading', { level: 3 }) }"
+        @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">
         <Heading3 :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('bulletList') }"
-        @click="editor.chain().focus().toggleBulletList().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('bulletList') }"
+        @click="editor.chain().focus().toggleBulletList().run()">
         <Dot :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('orderedList') }"
-        @click="editor.chain().focus().toggleOrderedList().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('orderedList') }"
+        @click="editor.chain().focus().toggleOrderedList().run()">
         <ListOrdered :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('codeBlock') }"
-        @click="editor.chain().focus().toggleCodeBlock().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('codeBlock') }"
+        @click="editor.chain().focus().toggleCodeBlock().run()">
         <Code2 :size="25" />
       </button>
-      <button
-        :class="{ 'is-active text-white': editor.isActive('blockquote') }"
-        @click="editor.chain().focus().toggleBlockquote().run()"
-      >
+      <button :class="{ 'is-active text-white': editor.isActive('blockquote') }"
+        @click="editor.chain().focus().toggleBlockquote().run()">
         <MessageSquareQuote :size="25" />
       </button>
       <div class="mx-2 border-r" />
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
-        @click="editor.chain().focus().setTextAlign('left').run()"
-      >
+      <button :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
+        @click="editor.chain().focus().setTextAlign('left').run()">
         <AlignLeft :size="25" />
       </button>
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
-        @click="editor.chain().focus().setTextAlign('center').run()"
-      >
+      <button :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
+        @click="editor.chain().focus().setTextAlign('center').run()">
         <AlignCenter :size="25" />
       </button>
-      <button
-        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
-        @click="editor.chain().focus().setTextAlign('right').run()"
-      >
+      <button :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
+        @click="editor.chain().focus().setTextAlign('right').run()">
         <AlignRight :size="25" />
       </button>
     </div>
@@ -139,7 +117,7 @@ const editor = useEditor({
       <div class="flex justify-end mt-2">
         <Button type="button" class="flex justify-end cursor-pointer hover:opacity-75" @click="() => emit('submit')">
           <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />
-          Crea
+          Conferma
         </Button>
       </div>
     </slot>
