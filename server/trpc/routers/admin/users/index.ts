@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { UserRole } from '@prisma/client'
-import { publicProcedure, router } from '../../../trpc'
+import { authorizedProcedure, router } from '../../../trpc'
 import { prisma } from '~/server/services/prisma'
 
 export const usersRouter = router({
-  paginateUsers: publicProcedure
+  paginateUsers: authorizedProcedure
     .query(async ({ input }) => {
       const users = await prisma.user.findMany()
 
@@ -13,7 +13,7 @@ export const usersRouter = router({
       }
     }),
 
-  getUserById: publicProcedure
+  getUserById: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -31,7 +31,7 @@ export const usersRouter = router({
       }
     }),
 
-  createUser: publicProcedure
+  createUser: authorizedProcedure
     .input(
       z.object({
         email: z.string(),
@@ -49,7 +49,7 @@ export const usersRouter = router({
       }
     }),
 
-  deleteUser: publicProcedure
+  deleteUser: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -66,7 +66,7 @@ export const usersRouter = router({
       })
     }),
 
-  banUser: publicProcedure
+  banUser: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -87,7 +87,7 @@ export const usersRouter = router({
       }
     }),
 
-  unbanUser: publicProcedure
+  unbanUser: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -108,7 +108,7 @@ export const usersRouter = router({
       }
     }),
 
-  changeUserRole: publicProcedure
+  changeUserRole: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -130,7 +130,7 @@ export const usersRouter = router({
       }
     }),
 
-  removeUserRole: publicProcedure
+  removeUserRole: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
@@ -151,7 +151,7 @@ export const usersRouter = router({
       }
     }),
 
-  changUserDetails: publicProcedure
+  changUserDetails: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),

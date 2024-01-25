@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { publicProcedure, router } from '../../../trpc'
+import { authorizedProcedure, router } from '../../../trpc'
 
 import { prisma } from '~/server/services/prisma'
 
 export const blogRouter = router({
-  paginatePosts: publicProcedure
+  paginatePosts: authorizedProcedure
     .input(
       z.object({
         showDeleted: z.boolean().optional(),
@@ -42,7 +42,7 @@ export const blogRouter = router({
       }
     }),
 
-  createDraftPost: publicProcedure
+  createDraftPost: authorizedProcedure
     .input(
       z.object({
         title: z.string(),
@@ -64,7 +64,7 @@ export const blogRouter = router({
       }
     }),
 
-  updatePost: publicProcedure
+  updatePost: authorizedProcedure
     .input(
       z.object({
         postId: z.string(),
@@ -86,7 +86,7 @@ export const blogRouter = router({
       }
     }),
 
-  getPostById: publicProcedure
+  getPostById: authorizedProcedure
     .input(z.object({
       postId: z.string(),
     }))
@@ -110,7 +110,7 @@ export const blogRouter = router({
       }
     }),
 
-  publishPost: publicProcedure
+  publishPost: authorizedProcedure
     .input(
       z.object({
         postId: z.string(),
@@ -131,7 +131,7 @@ export const blogRouter = router({
       }
     }),
 
-  unPublishPost: publicProcedure
+  unPublishPost: authorizedProcedure
     .input(
       z.object({
         postId: z.string(),
@@ -152,7 +152,7 @@ export const blogRouter = router({
       }
     }),
 
-  deletePost: publicProcedure
+  deletePost: authorizedProcedure
     .input(
       z.object({
         postId: z.string(),

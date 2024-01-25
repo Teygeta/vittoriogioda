@@ -1,12 +1,12 @@
 import { Resend } from 'resend'
 import z from 'zod'
 import { UserRole } from '@prisma/client'
-import { publicProcedure, router } from '../../../trpc'
+import { authorizedProcedure, router } from '../../../trpc'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const resendRouter = router({
-  sendRoleRequest: publicProcedure
+  sendRoleRequest: authorizedProcedure
     .input(
       z.object({
         userId: z.string().cuid(),
