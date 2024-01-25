@@ -12,7 +12,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:reset": "prisma db push --force-reset --accept-data-loss && prisma db seed"
+    "db:reset": "prisma db push --force-reset --accept-data-loss && prisma db seed",
+    "prisma:inline": "cp ./node_modules/.prisma/client/*.js ./node_modules/@prisma/client"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
