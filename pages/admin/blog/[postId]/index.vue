@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { format } from 'date-fns'
+import { it } from 'date-fns/locale'
+
 definePageMeta({
   middleware: ['auth', 'user-role'],
   layout: 'admin',
@@ -18,12 +21,20 @@ const post = computed(() => data.value?.post)
 <template>
   <div>
     <div v-if="post" class="space-y-0.5">
-      <h2 class="text-2xl font-bold tracking-tight">
-        Index
-      </h2>
-      <p class="text-muted-foreground">
-        Index post {{ data }}
-      </p>
+      <main class="max-w-4xl mx-auto">
+        <div class="my-8">
+          <h1 class="mb-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            {{ post.title }}
+          </h1>
+          <div class="font-mono text-gray-500">
+            {{ post.author.name }},
+
+            {{ format(post.createdAt, 'PPPP', { locale: it }).replace(/^\w/, (c) => c.toUpperCase()) }}
+          </div>
+        </div>
+
+        <div class="post-container" v-html="post.content" />
+      </main>
     </div>
   </div>
 </template>
