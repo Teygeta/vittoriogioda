@@ -27,8 +27,6 @@ const isDraftPostAuthor = computed(() => {
     }
   }
 })
-
-
 </script>
 
 <template>

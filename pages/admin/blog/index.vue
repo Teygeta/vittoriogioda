@@ -24,7 +24,6 @@ const filters = reactive<inferProcedureInput<AppRouter['admin']['blog']['paginat
   showDeleted: false,
 })
 
-
 const { $trpc } = useNuxtApp()
 const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery(
   toRaw(filters),

@@ -1,8 +1,7 @@
 import { Resend } from 'resend'
-import { publicProcedure, router } from '../../../trpc'
 import z from 'zod'
 import { UserRole } from '@prisma/client'
-
+import { publicProcedure, router } from '../../../trpc'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -13,7 +12,7 @@ export const resendRouter = router({
         userId: z.string().cuid(),
         email: z.string(),
         role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]).nullish(),
-      })
+      }),
     )
     .query(async ({ ctx: { prisma }, input }) => {
       const data = await resend.emails.send({
@@ -28,7 +27,7 @@ export const resendRouter = router({
           id: input.userId,
         },
         data: {
-          role: 'PENDING'
+          role: 'PENDING',
         },
       })
 

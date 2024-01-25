@@ -3,8 +3,8 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { UserRole } from '@prisma/client'
-import { useToast } from '~/components/ui/toast'
 import { Loader2 } from 'lucide-vue-next'
+import { useToast } from '~/components/ui/toast'
 
 definePageMeta({
   middleware: ['auth'],
@@ -28,7 +28,6 @@ const { handleSubmit } = useForm({
 const { $trpc } = useNuxtApp()
 const submitting = ref(false)
 const submitRoleRequest = handleSubmit(async (values) => {
-
   try {
     if (submitting.value) {
       return
@@ -44,7 +43,6 @@ const submitRoleRequest = handleSubmit(async (values) => {
 
     submitting.value = false
 
-
     toast({
       title: 'Role request sent',
     })
@@ -53,7 +51,6 @@ const submitRoleRequest = handleSubmit(async (values) => {
   }
   catch (e: any) {
     submitting.value = false
-
 
     toast({
       title: '❌Error',
@@ -140,15 +137,13 @@ const submitRoleRequest = handleSubmit(async (values) => {
               <FormMessage />
             </FormItem>
           </FormField>
-          <Button @click="submitRoleRequest" type="submit">
+          <Button type="submit" @click="submitRoleRequest">
             <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />
 
             Request role
           </Button>
         </Form>
-
       </Card>
-
     </template>
   </div>
 </template>

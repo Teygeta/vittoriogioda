@@ -21,13 +21,12 @@ const users = computed(() => data.value?.users ?? [])
 const formSchema = toTypedSchema(
   z.object({
     email: z.string().email(),
-  })
+  }),
 )
 
 const { handleSubmit } = useForm({
   validationSchema: formSchema,
 })
-
 
 const createUser = handleSubmit(async (values) => {
   try {

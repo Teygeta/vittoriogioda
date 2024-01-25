@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { BookOpen, Github, Home, Mail } from 'lucide-vue-next'
+import { BookOpen, Home } from 'lucide-vue-next'
 
 const { $trpc } = useNuxtApp()
-
 </script>
 
 <template>

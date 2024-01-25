@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
-import { publicProcedure, router } from '../../../trpc'
 import z from 'zod'
+import { publicProcedure, router } from '../../../trpc'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -10,7 +10,7 @@ export const resendRouter = router({
       z.object({
         email: z.string(),
         description: z.string().optional(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const data = await resend.emails.send({

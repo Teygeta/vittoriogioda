@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { BookOpen, Github, Home, Mail } from 'lucide-vue-next'
-import { useToast } from '~/components/ui/toast'
+import { BookOpen, Github, Home, Loader2, Mail } from 'lucide-vue-next'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
-import { Loader2 } from 'lucide-vue-next'
+import { useToast } from '~/components/ui/toast'
 
 const { toast } = useToast()
 const { $trpc } = useNuxtApp()
@@ -13,7 +12,7 @@ const formSchema = toTypedSchema(
   z.object({
     email: z.string().email(),
     description: z.string().optional(),
-  })
+  }),
 )
 
 const { handleSubmit } = useForm({
@@ -44,7 +43,7 @@ const sendEmail = handleSubmit(async (values) => {
 
     await $trpc.user.resend.sendEmail.query({
       email: values.email,
-      description: values.description
+      description: values.description,
     })
 
     if (typeof window !== 'undefined') {
@@ -66,7 +65,6 @@ const sendEmail = handleSubmit(async (values) => {
     })
   }
 })
-
 </script>
 
 <template>
@@ -114,7 +112,7 @@ const sendEmail = handleSubmit(async (values) => {
         <div>
           <Dialog :open="emailDialogisOpen">
             <DialogTrigger>
-              <Button @click="emailDialogisOpen = true" variant="ghost" class="w-fit mx-auto mt-10">
+              <Button variant="ghost" class="w-fit mx-auto mt-10" @click="emailDialogisOpen = true">
                 <Mail :size="20" />
               </Button>
             </DialogTrigger>
@@ -157,15 +155,14 @@ const sendEmail = handleSubmit(async (values) => {
                 </Form>
               </template>
               <DialogFooter as-child class="flex gap-2">
-                <Button v-if="!emailAlreadySent" @click="sendEmail" type="submit">
+                <Button v-if="!emailAlreadySent" type="submit" @click="sendEmail">
                   <Loader2 class="w-4 h-4 mr-2 animate-spin" :class="[submitting ? '' : 'hidden']" />
                   Invia
                 </Button>
-                <Button @click="emailDialogisOpen = false" variant="ghost" class="w-fit mx-auto mt-10">
+                <Button variant="ghost" class="w-fit mx-auto mt-10" @click="emailDialogisOpen = false">
                   Chiudi
                 </Button>
               </DialogFooter>
-
             </DialogContent>
           </Dialog>
 

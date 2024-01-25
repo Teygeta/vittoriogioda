@@ -3,9 +3,8 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { format } from 'date-fns'
-import { useToast } from '~/components/ui/toast'
 import { Loader2 } from 'lucide-vue-next'
-
+import { useToast } from '~/components/ui/toast'
 
 definePageMeta({
   middleware: ['auth'],
@@ -48,7 +47,7 @@ const onSubmit = handleSubmit(async (values) => {
       name: values.name,
     })
 
-    await await refresh()
+    await refresh()
 
     toast({
       title: 'Name changed successfully!',
@@ -170,7 +169,9 @@ const onSubmit = handleSubmit(async (values) => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction type="submit" @click="onSubmit">Continue</AlertDialogAction>
+                        <AlertDialogAction type="submit" @click="onSubmit">
+                          Continue
+                        </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { UserRole } from '@prisma/client'
 import { format } from 'date-fns'
-import { useToast } from '~/components/ui/toast'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
 import { Loader2, UserRound } from 'lucide-vue-next'
+import { useToast } from '~/components/ui/toast'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
@@ -45,7 +45,7 @@ async function deleteUser() {
       userId: userId.value,
     })
 
-    await await refresh()
+    await refresh()
 
     toast({
       title: 'User deleted',
@@ -72,7 +72,7 @@ async function banUser() {
       userId: userId.value,
     })
 
-    await await refresh()
+    await refresh()
 
     toast({
       title: 'User banned',
@@ -99,7 +99,7 @@ async function unbanUser() {
       userId: userId.value,
     })
 
-    await await refresh()
+    await refresh()
 
     toast({
       title: 'User unbanned',
@@ -125,7 +125,7 @@ async function changeUserRole() {
     })
 
     selectedRole.value = undefined
-    await await refresh()
+    await refresh()
   }
   catch (e: any) {
     toast({
@@ -147,7 +147,7 @@ async function removeUserRole() {
       userId: userId.value,
     })
 
-    await await refresh()
+    await refresh()
   }
   catch (e: any) {
     toast({
@@ -159,7 +159,6 @@ async function removeUserRole() {
     submitting.value = false
   }
 }
-
 
 const formSchema = toTypedSchema(
   z.object({
@@ -184,7 +183,7 @@ const changeUserName = handleSubmit(async (values) => {
       name: values.name,
     })
 
-    await await refresh()
+    await refresh()
 
     toast({
       title: 'Name changed successfully!',
@@ -413,7 +412,9 @@ const changeUserName = handleSubmit(async (values) => {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction @click="removeUserRole">Continue</AlertDialogAction>
+                <AlertDialogAction @click="removeUserRole">
+                  Continue
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
