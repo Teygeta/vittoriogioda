@@ -136,7 +136,7 @@ async function deletePost(postId: string) {
               <Settings :size="22" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <NuxtLink :to="`/admin/blog/edit/${post.id}`">
+              <NuxtLink :to="`/admin/blog/${post.id}/edit`">
                 <DropdownMenuItem>Edit</DropdownMenuItem>
               </NuxtLink>
               <DropdownMenuItem v-if="post.published" @click="() => unPublishPost(post.id)">
@@ -149,7 +149,7 @@ async function deletePost(postId: string) {
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <NuxtLink :to="`/blog/${post.id}`">
+              <NuxtLink :to="`/admin/blog/${post.id}`">
                 <DropdownMenuItem>
                   Read
                 </DropdownMenuItem>
@@ -169,7 +169,9 @@ async function deletePost(postId: string) {
 
         <div class="flex gap-2">
           <p class="text-sm text-muted-foreground italic">
-            {{ format(new Date(post.createdAt), 'dd/MM/yyyy') }} - {{ post.author.name || 'Unknown' }}
+            {{ format(new Date(post.createdAt), 'dd/MM/yyyy hh:mm') }} - {{ post.author.name || 'Unknown' }}
+            {{ post.createdAt !== post.updatedAt ? `- Updated at ${format(new Date(post.updatedAt), 'dd/MM/yyyy hh:mm')}`
+              : '' }}
           </p>
         </div>
       </Card>

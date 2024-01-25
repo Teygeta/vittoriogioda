@@ -31,7 +31,7 @@ async function createDraftPost() {
 
     submitting.value = false
 
-    navigateTo(`/blog/${post.id}?draft=${post.authorId}`)
+    navigateTo(`/admin/blog/${post.id}`)
   }
   catch (e: any) {
     toast({
