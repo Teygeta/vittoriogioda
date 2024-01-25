@@ -21,10 +21,8 @@
           Developer
         </div>
         <p>
-          Web developer. UX/UI designer. Mi piace creare app utili e belle da vedere.. Non sono sicuro di ciò che ho
-          scritto, ma suona bene.
-          Ogni tanto faccio qualche sito per le attività commerciali locali e sono un appassionato di procastinazione e
-          tecnologia.
+          Web developer. Mi piace creare app utili e belle da vedere;
+          ogni tanto faccio qualche sito per le attività commerciali. Sono appassionato di cucina e di biohaking.
         </p>
       </div>
     </div>
