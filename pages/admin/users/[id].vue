@@ -45,7 +45,7 @@ async function deleteUser() {
       userId: userId.value,
     })
 
-    await refresh()
+    await await refresh()
 
     toast({
       title: 'User deleted',
@@ -57,10 +57,6 @@ async function deleteUser() {
       title: '❌Error',
       description: e.message,
     })
-  }
-  finally {
-    submitting.value = false
-    close()
   }
 }
 
@@ -76,7 +72,7 @@ async function banUser() {
       userId: userId.value,
     })
 
-    await refresh()
+    await await refresh()
 
     toast({
       title: 'User banned',
@@ -88,10 +84,6 @@ async function banUser() {
       title: '❌Error',
       description: e.message,
     })
-  }
-  finally {
-    submitting.value = false
-    close()
   }
 }
 
@@ -107,7 +99,7 @@ async function unbanUser() {
       userId: userId.value,
     })
 
-    await refresh()
+    await await refresh()
 
     toast({
       title: 'User unbanned',
@@ -119,10 +111,6 @@ async function unbanUser() {
       title: '❌Error',
       description: e.message,
     })
-  }
-  finally {
-    submitting.value = false
-    close()
   }
 }
 
@@ -137,7 +125,7 @@ async function changeUserRole() {
     })
 
     selectedRole.value = undefined
-    await refresh()
+    await await refresh()
   }
   catch (e: any) {
     toast({
@@ -159,7 +147,7 @@ async function removeUserRole() {
       userId: userId.value,
     })
 
-    await refresh()
+    await await refresh()
   }
   catch (e: any) {
     toast({
@@ -196,7 +184,7 @@ const changeUserName = handleSubmit(async (values) => {
       name: values.name,
     })
 
-    await refresh()
+    await await refresh()
 
     toast({
       title: 'Name changed successfully!',

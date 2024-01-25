@@ -48,20 +48,19 @@ const onSubmit = handleSubmit(async (values) => {
       name: values.name,
     })
 
-    await refresh()
+    await await refresh()
 
     toast({
       title: 'Name changed successfully!',
     })
+
+    submitting.value = false
   }
   catch (e: any) {
     toast({
       title: '❌Error',
       description: e.message,
     })
-  }
-  finally {
-    submitting.value = false
   }
 })
 </script>

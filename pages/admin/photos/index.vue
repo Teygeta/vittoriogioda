@@ -43,7 +43,7 @@
 //       image: file.value.name,
 //     })
 
-//     refresh()
+//     await refresh()
 //   }
 //   catch (error) {
 //     //

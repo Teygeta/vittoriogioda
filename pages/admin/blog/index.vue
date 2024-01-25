@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 definePageMeta({
   middleware: ['auth', 'user-role'],
@@ -23,6 +24,7 @@ const filters = reactive<inferProcedureInput<AppRouter['admin']['blog']['paginat
   showDeleted: false,
 })
 
+
 const { $trpc } = useNuxtApp()
 const { data, refresh } = await $trpc.admin.blog.paginatePosts.useQuery(
   toRaw(filters),
@@ -31,16 +33,21 @@ const posts = computed(() => data.value?.posts ?? [])
 
 watch(filters, () => refresh())
 
+const { toast } = useToast()
+
 async function publishPost(postId: string) {
   try {
     await $trpc.admin.blog.publishPost.mutate({
       postId,
     })
 
-    refresh()
+    await refresh()
   }
-  catch (error) {
-
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
   }
 }
 
@@ -50,10 +57,13 @@ async function unPublishPost(postId: string) {
       postId,
     })
 
-    refresh()
+    await refresh()
   }
-  catch (error) {
-
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
   }
 }
 
@@ -63,10 +73,13 @@ async function deletePost(postId: string) {
       postId,
     })
 
-    refresh()
+    await refresh()
   }
-  catch (error) {
-
+  catch (e: any) {
+    toast({
+      title: '❌Error',
+      description: e.message,
+    })
   }
 }
 </script>
@@ -98,10 +111,8 @@ async function deletePost(postId: string) {
       <Card class="p-5">
         <div class="flex items-center space-x-2">
           <Checkbox id="terms" @update:checked="filters.showDeleted = $event" />
-          <label
-            for="terms"
-            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
+          <label for="terms"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             Show deleted posts
           </label>
         </div>
