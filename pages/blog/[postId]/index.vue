@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { it } from 'date-fns/locale'
 import { format } from 'date-fns'
-import { PencilLine } from 'lucide-vue-next'
 
 definePageMeta({
   layout: 'post',

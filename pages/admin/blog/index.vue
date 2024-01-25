@@ -176,7 +176,5 @@ async function deletePost(postId: string) {
         </div>
       </Card>
     </Card>
-
-    <!-- <pre><code>{{ postContent }}</code></pre> -->
   </div>
 </template>
