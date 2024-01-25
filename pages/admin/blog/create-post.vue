@@ -18,7 +18,7 @@ async function createDraftPost() {
   submitting.value = true
 
   try {
-    await $trpc.admin.blog.createDraftPost.mutate({
+    const { post } = await $trpc.admin.blog.createDraftPost.mutate({
       title: postTitle.value,
       content: postContent.value,
       authorId: user.value.id,
@@ -30,7 +30,8 @@ async function createDraftPost() {
     })
 
     submitting.value = false
-    location.reload()
+
+    navigateTo(`/blog/${post.id}?draft=${post.authorId}`)
   }
   catch (e: any) {
     toast({
