@@ -48,6 +48,14 @@ export const blogRouter = router({
         where: {
           id: input.postId,
         },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+            },
+          }
+        }
       })
 
       return {

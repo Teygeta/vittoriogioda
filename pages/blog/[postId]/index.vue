@@ -46,6 +46,7 @@ const isDraftPostAuthor = computed(() => {
           {{ post.title }}
         </h1>
         <div class="font-mono text-gray-500">
+          {{ post.author.name }} -
           {{ format(post.createdAt, 'PPPP', { locale: it }).replace(/^\w/, (c) => c.toUpperCase()) }}
         </div>
       </div>
@@ -59,6 +60,8 @@ const isDraftPostAuthor = computed(() => {
           {{ post.title }}
         </h1>
         <div class="font-mono text-gray-500">
+          {{ post.author.name }},
+
           {{ format(post.createdAt, 'PPPP', { locale: it }).replace(/^\w/, (c) => c.toUpperCase()) }}
         </div>
       </div>
