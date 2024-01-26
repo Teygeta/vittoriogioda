@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { UserRole } from '@prisma/client'
 import { format } from 'date-fns'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -23,7 +22,7 @@ const { data, refresh } = await $trpc.admin.users.getUserById.useQuery({
 
 const user = computed(() => data.value?.user || null)
 
-const userRoles: UserRole[] = ['ADMIN', 'USER', 'AUTHOR', 'MODERATOR']
+const userRoles = ['ADMIN', 'USER', 'AUTHOR', 'MODERATOR']
 
 const submitting = ref(false)
 
@@ -114,7 +113,7 @@ async function unbanUser() {
   }
 }
 
-const selectedRole = ref<UserRole>()
+const selectedRole = ref()
 async function changeUserRole() {
   submitting.value = true
 

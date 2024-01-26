@@ -112,7 +112,7 @@ export const usersRouter = router({
     .input(
       z.object({
         userId: z.string().cuid(),
-        role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]).nullish(),
+        role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]),
       }),
     )
     .mutation(async ({ input }) => {

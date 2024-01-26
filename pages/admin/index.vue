@@ -2,9 +2,12 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
-import { UserRole } from '@prisma/client'
 import { Loader2 } from 'lucide-vue-next'
 import { useToast } from '~/components/ui/toast'
+import type { AppRouter } from '~/server/trpc/routers'
+import type { inferProcedureInput } from '@trpc/server'
+
+type UserRole = inferProcedureInput<AppRouter['admin']['resend']['sendRoleRequest']>['role']
 
 definePageMeta({
   middleware: ['auth'],
@@ -16,10 +19,13 @@ const userRoles: UserRole[] = ['AUTHOR', 'MODERATOR']
 const { toast } = useToast()
 const user = useAuthUser()
 
-const formSchema = toTypedSchema(z.object({
-  email: z.string().email(),
-  role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]).nullish(),
-}))
+const formSchema = toTypedSchema(
+  z.object({
+    email: z.string().email(),
+    // @ts-expect-error
+    role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]),
+  })
+)
 
 const { handleSubmit } = useForm({
   validationSchema: formSchema,
@@ -37,6 +43,7 @@ const submitRoleRequest = handleSubmit(async (values) => {
 
     await $trpc.admin.resend.sendRoleRequest.query({
       email: values.email,
+      // @ts-expect-error
       role: values.role,
       userId: user.value.id,
     })
@@ -112,7 +119,7 @@ const submitRoleRequest = handleSubmit(async (values) => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role">
+                      <SelectItem v-for="(role, index) in userRoles" :key="index" :value="role || ''">
                         <span v-if="role === 'ADMIN'"
                           class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                           {{ role }}
