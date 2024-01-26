@@ -22,8 +22,7 @@ const user = useAuthUser()
 const formSchema = toTypedSchema(
   z.object({
     email: z.string().email(),
-    // @ts-expect-error
-    role: z.enum(Object.keys(UserRole) as [keyof typeof UserRole]),
+    role: z.string(),
   })
 )
 
