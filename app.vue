@@ -1,16 +1,16 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'teygenesis',
-  description: '',
-  ogTitle: '',
-  ogDescription: '',
+  title: 'Vittorio Gioda',
+  description: 'Web developer. Mi piace creare app utili e belle da vedere; ogni tanto faccio qualche sito per le attività commerciali. Sono appassionato di cucina e di biohaking.',
+  ogTitle: 'Vittorio Gioda',
+  ogDescription: 'Web developer. Mi piace creare app utili e belle da vedere; ogni tanto faccio qualche sito per le attività commerciali. Sono appassionato di cucina e di biohaking.',
   ogImage: '',
-  ogUrl: '',
+  ogUrl: 'www.vittoriogioda.it',
 })
 
 useHead({
   htmlAttrs: {
-    lang: 'en',
+    lang: 'it',
   },
 })
 </script>
