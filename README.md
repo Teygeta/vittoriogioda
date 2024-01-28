@@ -1,1 +1,1 @@
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/teygeta/teygenesis)
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/10j5d.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
