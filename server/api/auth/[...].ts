@@ -38,23 +38,6 @@ export default NuxtAuthHandler({
         if (userData!.banned) {
           throw new Error('Banned')
         }
-
-        const adminEmail = process.env.DEFAULT_ADMIN_EMAIL
-        if (userData!.email === adminEmail) {
-          await prisma.user.update({
-            where: {
-              email: adminEmail,
-            },
-            data: {
-              role: 'ADMIN',
-            },
-          })
-
-          session.user.role = 'ADMIN'
-        }
-        else {
-          session.user.role = userData!.role
-        }
       }
       return session
     },
