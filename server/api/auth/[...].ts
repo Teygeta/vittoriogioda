@@ -35,6 +35,8 @@ export default NuxtAuthHandler({
           },
         })
 
+        session.user.role = userData!.role
+
         if (userData!.banned) {
           throw new Error('Banned')
         }
