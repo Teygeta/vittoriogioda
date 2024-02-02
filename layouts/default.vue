@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookOpen, Github, Home, Loader2, Mail } from 'lucide-vue-next'
+import { BookOpen, Github, Home, Loader2, Mail, Linkedin } from 'lucide-vue-next'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
@@ -169,6 +169,12 @@ const sendEmail = handleSubmit(async (values) => {
           <Button variant="ghost" class="w-fit mx-auto mt-10" as-child>
             <a href="https://www.github.com/Teygeta" target="_blank">
               <Github :size="20" />
+            </a>
+          </Button>
+
+          <Button variant="ghost" class="w-fit mx-auto mt-10" as-child>
+            <a href="https://www.linkedin.com/in/vittorio-gioda" target="_blank">
+              <Linkedin :size="20" />
             </a>
           </Button>
         </div>
