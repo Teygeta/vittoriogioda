@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="mt-3 mb-8 ml-1 font-mono italic text-gray-500">
-          Developer
+          Front-End Developer
         </div>
         <p>
           Web developer. Mi piace creare app utili e belle da vedere;
