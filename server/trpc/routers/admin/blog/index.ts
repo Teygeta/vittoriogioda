@@ -1,5 +1,7 @@
 import { z } from 'zod'
 import { publicProcedure, router } from '../../../trpc'
+import { slug } from '../../../../utils'
+import { Prisma } from '@prisma/client'
 
 import { prisma } from '~/server/services/prisma'
 
@@ -51,17 +53,16 @@ export const blogRouter = router({
       }),
     )
     .mutation(async ({ input }) => {
-      const post = await prisma.post.create({
+
+      return uniqueSlug(input.title, slug => prisma.post.create({
         data: {
           title: input.title,
           content: input.content,
           authorId: input.authorId,
-        },
-      })
 
-      return {
-        post,
-      }
+          slug,
+        },
+      }))
     }),
 
   updatePost: publicProcedure
@@ -174,3 +175,29 @@ export const blogRouter = router({
       }
     }),
 })
+
+async function uniqueSlug<T>(value: string, create: (value: string) => Promise<T>): Promise<T> {
+  let slugValue = slug(value)
+
+  let index = 0
+  while (true) {
+    index++
+
+    try {
+      return await create(slugValue)
+    }
+    catch (e) {
+      if (index > 10) {
+        throw e
+      }
+
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+        slugValue = `${slugValue}-${index}`
+        continue
+      }
+
+      throw e
+    }
+  }
+}
+

@@ -18,7 +18,7 @@ async function createDraftPost() {
   submitting.value = true
 
   try {
-    const { post } = await $trpc.admin.blog.createDraftPost.mutate({
+    const post = await $trpc.admin.blog.createDraftPost.mutate({
       title: postTitle.value,
       content: postContent.value,
       authorId: user.value.id,

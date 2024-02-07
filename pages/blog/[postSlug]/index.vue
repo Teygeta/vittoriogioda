@@ -7,11 +7,11 @@ definePageMeta({
 })
 
 const route = useRoute()
-const postId = computed(() => route.params.postId as string)
+const postSlug = computed(() => route.params.postSlug as string)
 const { $trpc } = useNuxtApp()
 
-const { data } = await $trpc.user.blog.getPostById.useQuery({
-  postId: postId.value,
+const { data } = await $trpc.user.blog.getPostBySlug.useQuery({
+  postSlug: postSlug.value,
 })
 
 const post = computed(() => data.value?.post)

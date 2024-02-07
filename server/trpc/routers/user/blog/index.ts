@@ -39,14 +39,14 @@ export const blogRouter = router({
       }
     }),
 
-  getPostById: publicProcedure
+  getPostBySlug: publicProcedure
     .input(z.object({
-      postId: z.string(),
+      postSlug: z.string(),
     }))
     .query(async ({ input }) => {
       const post = await prisma.post.findUnique({
         where: {
-          id: input.postId,
+          slug: input.postSlug,
         },
         include: {
           author: {
